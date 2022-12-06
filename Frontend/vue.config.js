@@ -4,13 +4,13 @@ module.exports = {
   devServer: {
     overlay: false,
     proxy: {
-      "/serverApi": {
+      '/serverApi': {
         target: VUE_APP_SERVER,
         changeOrigin: true,
         pathRewrite: {
-          "^/serverApi": "",
-        },
-      },
-    },
-  },
+          '^/serverApi': ''
+        }
+      }
+    }
+  }
 }

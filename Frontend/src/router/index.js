@@ -31,6 +31,10 @@ const routes = [
       //   path: '/device',
       //   component: () => import('../views/device')
       // }
+      {
+        path: '/three',
+        component: () => import('../views/three')
+      }
     ]
   },
   {
