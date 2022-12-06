@@ -34,6 +34,10 @@ const routes = [
       {
         path: '/three',
         component: () => import('../views/three')
+      },
+      {
+        path: '/issue',
+        component: () => import('../views/issue')
       }
     ]
   },
