@@ -13,7 +13,7 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: () => import('../views/Home.vue')
+        component: () => import('../views/dashboard')
       },
       {
         path: '/dashboard',
@@ -33,7 +33,11 @@ const routes = [
       // }
       {
         path: '/three',
-        component: () => import('../views/three')
+        component: () => import('../views/webgl/three')
+      },
+      {
+        path: '/issue',
+        component: () => import('../views/board/issue')
       }
     ]
   },
