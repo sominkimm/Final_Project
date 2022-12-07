@@ -10,11 +10,16 @@
             <b-form-group label-cols="4" label-cols-lg="3" label="패스워드" label-for="input-password">
               <b-form-input id="input-password" v-model="password" type="password"></b-form-input>
             </b-form-group>
-            <b-form-group label-cols="4" label-cols-lg="3" label="">
-              <b-button variant="primary" :disabled="loading" @click="onSubmit"
-                ><b-spinner v-if="loading" small></b-spinner> 로그인</b-button
-              >
-            </b-form-group>
+            <div style="display: flex">
+              <b-form-group label-cols="4" label-cols-lg="3" label="">
+                <b-button variant="primary" :disabled="loading" style="width: 100px" @click="onSubmit"
+                  ><b-spinner v-if="loading" small></b-spinner> 로그인</b-button
+                >
+              </b-form-group>
+              <b-form-group label-cols="4" label-cols-lg="3" label="">
+                <b-button variant="primary" :disabled="loading" style="width: 100px" @click="signUp">회원가입</b-button>
+              </b-form-group>
+            </div>
           </b-card>
         </b-col>
       </b-row>
@@ -80,7 +85,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('authLogin', { userid: this.userid, password: this.password })
+      this.$store.dispatch('authLogin', {
+        userid: this.userid,
+        password: this.password
+      })
+    },
+    signUp() {
+      this.$router.push('/auth/signup')
     }
   }
 }
