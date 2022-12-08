@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="separate-body"></div>
+    <div class="separate-body" />
     <b-container fluid style="padding-left: 0px">
       <b-row>
         <!-- Side bar -->

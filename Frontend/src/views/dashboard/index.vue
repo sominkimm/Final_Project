@@ -7,15 +7,15 @@
       <line-chart ref="chart" :chart-data="chartData" :options="options" style="width: 500px"></line-chart>
     </div> -->
     <!-- <b-container> -->
-    <b-row style="background: brown">날짜별 생산량(graph)</b-row>
+    <b-row style="background: brown"> 날짜별 생산량(graph) </b-row>
     <b-row style="background: gray">
-      <b-col style="background: skyblue">생산량(숫자)</b-col>
-      <b-col style="background: yellow">하루 생산량(bar)</b-col>
+      <b-col style="background: skyblue"> 생산량(숫자) </b-col>
+      <b-col style="background: yellow"> 하루 생산량(bar) </b-col>
     </b-row>
     <b-row style="background: gray">
-      <b-col style="background: green">현재 작업(stack)</b-col>
+      <b-col style="background: green"> 현재 작업(stack) </b-col>
 
-      <b-col style="background: pink">예측 생산량</b-col>
+      <b-col style="background: pink"> 예측 생산량 </b-col>
     </b-row>
     <!-- </b-container> -->
   </div>

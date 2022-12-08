@@ -85,6 +85,30 @@ export default {
           context.commit('setError', error)
         })
     },
+    authSignup(context, payload) {
+      // 로그인 처리
+
+      // 상태값 초기화
+      context.commit('clearError')
+      context.commit('setLoading', true)
+
+      /* RestApi 호출 */
+      api
+        .post('/serverApi/users', payload)
+        .then(response => {
+          const token = response.headers.token
+          const decodedToken = jwtDecode(token)
+
+          // 정상인 경우 처리
+          context.commit('setLoading', false)
+          context.commit('setTokenUser', decodedToken)
+        })
+        .catch(error => {
+          // 에러인 경우 처리
+          context.commit('setLoading', false)
+          context.commit('setError', error)
+        })
+    },
     async authLogout(context) {
       // 로그아웃 처리
 

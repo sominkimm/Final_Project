@@ -1,28 +1,99 @@
 <template>
-  <div>
-    <div style="margin-top: 80px">
-      <b-row align-h="center">
-        <b-col cols="4">
-          <b-card title="로그인">
-            <b-form-group label-cols="4" label-cols-lg="3" label="아이디" label-for="input-userid">
-              <b-form-input id="input-userid" v-model="userid"></b-form-input>
-            </b-form-group>
-            <b-form-group label-cols="4" label-cols-lg="3" label="패스워드" label-for="input-password">
-              <b-form-input id="input-password" v-model="password" type="password"></b-form-input>
-            </b-form-group>
-            <div style="display: flex">
-              <b-form-group label-cols="4" label-cols-lg="3" label="">
-                <b-button variant="primary" :disabled="loading" style="width: 100px" @click="onSubmit"
-                  ><b-spinner v-if="loading" small></b-spinner> 로그인</b-button
-                >
-              </b-form-group>
-              <b-form-group label-cols="4" label-cols-lg="3" label="">
-                <b-button variant="primary" :disabled="loading" style="width: 100px" @click="signUp">회원가입</b-button>
-              </b-form-group>
-            </div>
-          </b-card>
-        </b-col>
-      </b-row>
+  <div class="template">
+    <div class="wrapper">
+      <div class="form-wrapper sign-in">
+        <form action>
+          <h4>Welcome!</h4>
+          <h2>Smart Factory</h2>
+          <!-- <h2>LOGIN</h2> -->
+          <div class="input-group">
+            <input
+              id="input-userid"
+              v-model="userid"
+              type="text"
+              autocomplete="off"
+              required
+            />
+            <label for="input-userid">ID</label>
+          </div>
+          <div class="input-group">
+            <input
+              id="input-password"
+              v-model="password"
+              type="password"
+              required
+              @keyup.enter="onSubmit"
+            />
+            <label for="input-password">Password</label>
+          </div>
+          <!-- <div class="remember">
+          <label><input type="checkbox" /> Remember me</label>
+        </div> -->
+          <button type="button" @click="onSubmit">Login</button>
+          <div class="signup-link">
+            <p>
+              Don't have an account?
+              <a href="#" @click="activeSignup">Sign Up</a>
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <div class="form-wrapper sign-up">
+        <form action>
+          <h3>SIGN UP</h3>
+          <div class="input-group">
+            <input v-model="userid" type="text" required />
+            <label for="">ID</label>
+          </div>
+          <!-- <div class="input-group">
+                    <input type="text" required>
+                    <label for="">Name</label>
+                </div> -->
+          <div class="input-group">
+            <input v-model="password" type="password" required />
+            <label for="">Password</label>
+          </div>
+          <div class="input-group">
+            <input
+              v-model="passwordVerify"
+              type="password"
+              required
+              @submit.prevent="verifyPw"
+            />
+            <label for="">Check Password</label>
+          </div>
+          <div class="input-group">
+            <input v-model="email" type="email" required />
+            <label for="">Email</label>
+          </div>
+          <div class="input-group">
+            <input v-model="phone" type="tel" required />
+            <label for="">휴대전화</label>
+          </div>
+          <div class="input-group">
+            <input v-model="factoryname" required @keyup.enter="btnSignup" />
+            <label for="">회사명</label>
+          </div>
+
+          <!-- <div class="input-group">
+                    <input type="text" required>
+                    <label for="">Company name</label>
+                </div> -->
+          <!-- <div class="remember">
+          <label
+            ><input type="checkbox" /> I agree to the terms & conditions</label
+          >
+        </div> -->
+          <button type="button" @click="btnSignup">Sign Up</button>
+          <div class="signup-link">
+            <p>
+              Already have an account?
+              <a href="#" @click="activeSignin">Login</a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +105,11 @@ export default {
   data() {
     return {
       userid: null,
-      password: null
+      password: null,
+      passwordVerify: null,
+      email: null,
+      phone: null,
+      factoryname: null
     }
   },
   computed: {
@@ -84,17 +159,205 @@ export default {
     }
   },
   methods: {
+    activeSignup() {
+      const wrapper = document.querySelector('.wrapper')
+      wrapper.classList.toggle('active')
+    },
+    activeSignin() {
+      const wrapper = document.querySelector('.wrapper')
+      wrapper.classList.toggle('active')
+    },
     onSubmit() {
       this.$store.dispatch('authLogin', {
         userid: this.userid,
         password: this.password
       })
+      console.log('login clicked')
     },
-    signUp() {
-      this.$router.push('/auth/signup')
+    verifyPw() {
+      console.log('check pw')
     }
+    // btnSignup() {
+    //   this.$store.dispatch('authSignup', {
+    //     userid: this.userid,
+    //     password: this.password,
+    //     passwordVerify: this.passwordVerify,
+    //     email: this.email,
+    //     phone: this.phone,
+    //     factoryname: this.factoryname
+    //   })
+    //   console.log('signup clicked')
+    // }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000;
+}
+
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 620px;
+  background: #000;
+  box-shadow: 0 0 50px #0ef;
+  border-radius: 20px;
+  padding: 40px;
+  overflow: hidden;
+}
+
+/* hover effect: change colors */
+.wrapper:hover {
+  animation: animate 1s linear infinite;
+}
+
+@keyframes animate {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: 1s ease-in-out;
+}
+
+.wrapper.active .form-wrapper.sign-in {
+  transform: translateY(-600px);
+}
+
+.wrapper .form-wrapper.sign-up {
+  position: absolute;
+  top: 600px;
+  left: 0;
+}
+
+.wrapper.active .form-wrapper.sign-up {
+  transform: translateY(-600px);
+}
+
+h2 {
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h4 {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-top: 15px;
+}
+
+.sign-in .input-group {
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.588);
+}
+
+.sign-up .input-group {
+  position: relative;
+  margin: 25px 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.588);
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.633);
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.input-group input {
+  width: 290px;
+  height: 40px;
+  font-size: 15px;
+  color: #fff;
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+  top: -5px;
+}
+
+// .remember {
+//   margin: -5px 0 15px 5px;
+// }
+
+// .remember label {
+//   color: #fff;
+//   font-size: 14px;
+// }
+
+// .remember label input {
+//   accent-color: #0ef;
+// }
+
+button {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: #0ef;
+  box-shadow: 0 0 10px #0ef;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+}
+
+.signup-link {
+  font-size: 14px;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.signup-link p {
+  color: rgba(255, 255, 255, 0.633);
+}
+
+.signup-link p a {
+  color: rgba(0, 238, 255, 0.79);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-link p a:hover {
+  text-decoration: underline;
+}
+</style>

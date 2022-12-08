@@ -1,5 +1,5 @@
 <template>
-  <div ref="webgl"></div>
+  <div ref="webgl" />
 </template>
 
 <script>

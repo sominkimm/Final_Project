@@ -5,15 +5,15 @@
       <b-row>
         <b-col style="text-align: left" cols="3">
           <b-input-group class="mt-3">
-            <b-form-input v-model="search.name" placeholder="이름 검색"></b-form-input>
-            <b-form-input v-model="search.userid" placeholder="아이디 검색"></b-form-input>
+            <b-form-input v-model="search.name" placeholder="이름 검색" />
+            <b-form-input v-model="search.userid" placeholder="아이디 검색" />
             <b-input-group-append>
-              <b-button variant="primary" size="sm" @click="searchUserList">검색</b-button>
+              <b-button variant="primary" size="sm" @click="searchUserList"> 검색 </b-button>
             </b-input-group-append>
           </b-input-group>
         </b-col>
         <b-col style="text-align: right">
-          <b-button variant="success" size="sm" @click="onClickAddNew">신규등록</b-button>
+          <b-button variant="success" size="sm" @click="onClickAddNew"> 신규등록 </b-button>
         </b-col>
       </b-row>
     </div>
@@ -26,10 +26,10 @@
           {{ row.item.createdAt.substring(0, 10) }}
         </template>
         <template #cell(updateBtn)="row">
-          <b-button size="sm" variant="success" @click="onClickEdit(row.item.id)">수정</b-button>
+          <b-button size="sm" variant="success" @click="onClickEdit(row.item.id)"> 수정 </b-button>
         </template>
         <template #cell(deleteBtn)="row">
-          <b-button size="sm" variant="danger" @click="onClickDelete(row.item.id)">삭제</b-button>
+          <b-button size="sm" variant="danger" @click="onClickDelete(row.item.id)"> 삭제 </b-button>
         </template>
       </b-table>
     </div>
