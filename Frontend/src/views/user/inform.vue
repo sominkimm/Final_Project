@@ -3,10 +3,10 @@
     <b-modal id="modal-user-inform" :title="getTitle" @ok="onSubmit">
       <div>
         <b-form-group v-if="inputMode === 'update'" label="id" label-for="code" label-cols="3">
-          <b-form-input id="id" v-model="user.id" disabled></b-form-input>
+          <b-form-input id="id" v-model="user.id" disabled />
         </b-form-group>
         <b-form-group label="이름" label-for="name" label-cols="3">
-          <b-form-input id="name" v-model="user.name"></b-form-input>
+          <b-form-input id="name" v-model="user.name" />
         </b-form-group>
         <b-form-group label="부서" label-for="department" label-cols="3">
           <b-form-select
@@ -17,33 +17,28 @@
             text-field="name"
           >
             <template #first>
-              <b-form-select-option :value="null">-- 부서를 선택해 주세요 --</b-form-select-option>
+              <b-form-select-option :value="null"> -- 부서를 선택해 주세요 -- </b-form-select-option>
             </template>
           </b-form-select>
         </b-form-group>
         <b-form-group label="아이디" label-for="userid" label-cols="3">
-          <b-form-input id="userid" v-model="user.userid"></b-form-input>
+          <b-form-input id="userid" v-model="user.userid" />
         </b-form-group>
         <b-form-group label="비밀번호" label-for="password" label-cols="3">
-          <b-form-input
-            v-if="inputMode === 'insert'"
-            id="password"
-            v-model="user.password"
-            type="password"
-          ></b-form-input>
-          <b-button v-if="inputMode === 'update'" variant="danger">비밀번호 변경</b-button>
+          <b-form-input v-if="inputMode === 'insert'" id="password" v-model="user.password" type="password" />
+          <b-button v-if="inputMode === 'update'" variant="danger"> 비밀번호 변경 </b-button>
         </b-form-group>
         <b-form-group label="권한" label-for="auth" label-cols="3">
           <b-form-radio-group id="auth" v-model="user.role" :options="userRole.options" />
         </b-form-group>
         <b-form-group label="이메일" label-for="email" label-cols="3">
-          <b-form-input id="email" v-model="user.email"></b-form-input>
+          <b-form-input id="email" v-model="user.email" />
         </b-form-group>
         <b-form-group label="전화번호" label-for="phone" label-cols="3">
-          <b-form-input id="phone" v-model="user.phone"></b-form-input>
+          <b-form-input id="phone" v-model="user.phone" />
         </b-form-group>
         <b-form-group v-if="inputMode === 'update'" label="등록일" label-for="createdAt" label-cols="3">
-          <b-form-input id="createdAt" :value="getCreatedAt" disabled></b-form-input>
+          <b-form-input id="createdAt" :value="getCreatedAt" disabled />
         </b-form-group>
       </div>
     </b-modal>

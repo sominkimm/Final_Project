@@ -5,7 +5,7 @@
         <b-button variant="success" size="sm" @click="onClickAddNew">글쓰기</b-button>
       </b-col> -->
       <b-col class="mr-2" cols="10" align="right">
-        <b-button v-b-modal.modal-prevent-closing variant="success" size="sm">글쓰기</b-button>
+        <b-button v-b-modal.modal-prevent-closing variant="success" size="sm"> 글쓰기 </b-button>
         <b-modal
           id="modal-prevent-closing"
           ref="modal"
@@ -16,7 +16,7 @@
         >
           <form ref="form" @submit.stop.prevent="handleSubmit">
             <b-form-group label="제목" label-for="title-input" invalid-feedback="Title is required" :state="titleState">
-              <b-form-input id="title-input" v-model="title" :state="titleState" required></b-form-input>
+              <b-form-input id="title-input" v-model="title" :state="titleState" required />
             </b-form-group>
             <b-form-group
               label="내용"
@@ -32,20 +32,13 @@
                 rows="3"
                 max-rows="6"
                 required
-              ></b-form-textarea>
+              />
             </b-form-group>
           </form>
         </b-modal>
       </b-col>
       <b-col cols="10" class="mt-3 mb-3">
-        <b-table
-          id="issue-table"
-          striped
-          hover
-          :items="items"
-          :per-page="perPage"
-          :current-page="currentPage"
-        ></b-table>
+        <b-table id="issue-table" striped no-collapse :items="items" :per-page="perPage" :current-page="currentPage" />
       </b-col>
     </b-row>
     <b-pagination
@@ -55,7 +48,7 @@
       :total-rows="rows"
       aria-controls="issue-table"
       align="center"
-    ></b-pagination>
+    />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="light" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1)">
-      <b-navbar-brand href="/">Smart Factory</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-brand href="/"> Smart Factory </b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse" />
       <b-collapse id="nav-collapse" is-nav>
         <!-- <b-navbar-nav>
           <b-nav-item href="#">메뉴1</b-nav-item>
@@ -15,8 +15,8 @@
           <template #button-content>
             <em>{{ tokenUserName }}</em>
           </template>
-          <b-button href="#">Mypage</b-button>
-          <b-button href="#" @click="onClick('/auth/logout')">Log Out</b-button>
+          <b-button href="#"> Mypage </b-button>
+          <b-button href="#" @click="onClick('/auth/logout')"> Log Out </b-button>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

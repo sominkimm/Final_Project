@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center" style="margin-top: 200px">
-      <b-spinner variant="secondary" style="width: 3rem; height: 3rem" label="Logout..."></b-spinner>
+      <b-spinner variant="secondary" style="width: 3rem; height: 3rem" label="Logout..." />
     </div>
   </div>
 </template>

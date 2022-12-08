@@ -25,6 +25,12 @@ module.exports = {
     ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }]
+    'no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['default', 'login', 'issue']
+      }
+    ]
   }
 }
