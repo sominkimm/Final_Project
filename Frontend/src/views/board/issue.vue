@@ -15,13 +15,37 @@
           @ok="handleOk"
         >
           <form ref="form" @submit.stop.prevent="handleSubmit">
-            <b-form-group label="제목" label-for="title-input" invalid-feedback="Title is required" :state="titleState">
+            <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
+              <b-form-input id="name-input" v-model="name" :state="nameState" required />
+            </b-form-group>
+
+            <b-form-group
+              label="작성일"
+              label-for="datepicker-placeholder"
+              invalid-feedback="날짜를 선택하세요"
+              :state="datepickerState"
+            >
+              <b-form-datepicker
+                id="datepicker-placeholder"
+                v-model="datepicker"
+                placeholder="날짜를 선택하세요"
+                locale="ko"
+              ></b-form-datepicker>
+            </b-form-group>
+
+            <b-form-group
+              label="제목"
+              label-for="title-input"
+              invalid-feedback="제목을 입력하세요"
+              :state="titleState"
+              style="margin-top: 7px"
+            >
               <b-form-input id="title-input" v-model="title" :state="titleState" required />
             </b-form-group>
             <b-form-group
               label="내용"
               label-for="content-input"
-              invalid-feedback="Content is required"
+              invalid-feedback="내용을 입력하세요"
               :state="contentState"
             >
               <b-form-textarea
@@ -56,7 +80,7 @@
 export default {
   data() {
     return {
-      perPage: 5,
+      perPage: 8,
       currentPage: 1,
       items: [
         { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
@@ -66,8 +90,19 @@ export default {
         { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
         { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
         { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
+        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
         { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' }
       ],
+      name: '',
+      nameState: null,
+      datepicker: '',
+      datepickerState: null,
       title: '',
       titleState: null,
       content: '',
@@ -84,9 +119,15 @@ export default {
       const valid = this.$refs.form.checkValidity()
       this.titleState = valid
       this.contentState = valid
+      this.nameState = valid
+      this.datepickerState = valid
       return valid
     },
     resetModal() {
+      this.name = ''
+      this.nameState = null
+      this.datepicker = ''
+      this.datepickerState = null
       this.title = ''
       this.titleState = null
       this.content = ''
