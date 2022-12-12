@@ -7,23 +7,11 @@
           <h2>Smart Factory</h2>
           <!-- <h2>LOGIN</h2> -->
           <div class="input-group">
-            <input
-              id="input-userid"
-              v-model="userid"
-              type="text"
-              autocomplete="off"
-              required
-            />
+            <input id="input-userid" v-model="userid" type="text" autocomplete="off" required />
             <label for="input-userid">ID</label>
           </div>
           <div class="input-group">
-            <input
-              id="input-password"
-              v-model="password"
-              type="password"
-              required
-              @keyup.enter="onSubmit"
-            />
+            <input id="input-password" v-model="password" type="password" required @keyup.enter="onSubmit" />
             <label for="input-password">Password</label>
           </div>
           <!-- <div class="remember">
@@ -40,7 +28,7 @@
       </div>
 
       <div class="form-wrapper sign-up">
-        <form action>
+        <form action @submit.prevent="handleSubmit">
           <h3>SIGN UP</h3>
           <div class="input-group">
             <input v-model="userid" type="text" required />
@@ -55,12 +43,7 @@
             <label for="">Password</label>
           </div>
           <div class="input-group">
-            <input
-              v-model="passwordVerify"
-              type="password"
-              required
-              @submit.prevent="verifyPw"
-            />
+            <input v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
             <label for="">Check Password</label>
           </div>
           <div class="input-group">
@@ -85,7 +68,7 @@
             ><input type="checkbox" /> I agree to the terms & conditions</label
           >
         </div> -->
-          <button type="button" @click="btnSignup">Sign Up</button>
+          <button>Sign Up</button>
           <div class="signup-link">
             <p>
               Already have an account?
@@ -100,8 +83,10 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 export default {
+  name: 'Signup',
   data() {
     return {
       userid: null,
@@ -176,16 +161,37 @@ export default {
     },
     verifyPw() {
       console.log('check pw')
+    },
+    handleSubmit() {
+      const data = {
+        userid: this.userid,
+        password: this.password,
+        passwordVerify: this.passwordVerify,
+        email: this.email,
+        phone: this.phone,
+        factoryname: this.factoryname
+      }
+      axios.post('http://192.168.0.70:8081/signup', data)
+          .then(
+            res => {
+              console.log(res)
+            }
+          )
+          .catch(
+            err => {
+              console.log(err)
+            }
+          )
     }
     // btnSignup() {
-    //   this.$store.dispatch('authSignup', {
-    //     userid: this.userid,
-    //     password: this.password,
-    //     passwordVerify: this.passwordVerify,
-    //     email: this.email,
-    //     phone: this.phone,
-    //     factoryname: this.factoryname
-    //   })
+    //   //   this.$store.dispatch('authSignup', {
+    //   //     userid: this.userid,
+    //   //     password: this.password,
+    //   //     passwordVerify: this.passwordVerify,
+    //   //     email: this.email,
+    //   //     phone: this.phone,
+    //   //     factoryname: this.factoryname
+    //   //   })
     //   console.log('signup clicked')
     // }
   }
@@ -219,15 +225,15 @@ export default {
 }
 
 /* hover effect: change colors */
-.wrapper:hover {
-  animation: animate 1s linear infinite;
-}
+// .wrapper:hover {
+//   animation: animate 1s linear infinite;
+// }
 
-@keyframes animate {
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
+// @keyframes animate {
+//   100% {
+//     filter: hue-rotate(360deg);
+//   }
+// }
 
 .form-wrapper {
   display: flex;
