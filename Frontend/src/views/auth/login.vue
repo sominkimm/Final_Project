@@ -3,9 +3,8 @@
     <div class="wrapper">
       <div class="form-wrapper sign-in">
         <form action>
-          <h4>Welcome!</h4>
-          <h2>Smart Factory</h2>
-          <!-- <h2>LOGIN</h2> -->
+          <h4>Welcome to</h4>
+          <h2>Smart Factory!</h2>
           <div class="input-group">
             <input id="input-userid" v-model="userid" type="text" autocomplete="off" required />
             <label for="input-userid">ID</label>
@@ -14,32 +13,27 @@
             <input id="input-password" v-model="password" type="password" required @keyup.enter="onSubmit" />
             <label for="input-password">Password</label>
           </div>
-          <!-- <div class="remember">
-          <label><input type="checkbox" /> Remember me</label>
-        </div> -->
-          <button type="button" @click="onSubmit">Login</button>
+          <button type="button" @click="onSubmit">로그인</button>
           <div class="signup-link">
             <p>
-              Don't have an account?
-              <a href="#" @click="activeSignup">Sign Up</a>
+              계정이 없으신가요?
+              <a href="#" @click="activeSignup">회원가입</a>
             </p>
           </div>
         </form>
       </div>
 
+      <!-- @submit.prevent="submitForm" -->
       <div class="form-wrapper sign-up">
         <form action @submit.prevent="handleSubmit">
-          <h3>SIGN UP</h3>
+          <h3>회원가입</h3>
+
           <div class="input-group">
-            <input v-model="userid" type="text" required />
+            <input v-model="s_userid" type="text" required />
             <label for="">ID</label>
           </div>
-          <!-- <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Name</label>
-                </div> -->
           <div class="input-group">
-            <input v-model="password" type="password" required />
+            <input v-model="s_password" type="password" required />
             <label for="">Password</label>
           </div>
           <div class="input-group">
@@ -55,24 +49,14 @@
             <label for="">휴대전화</label>
           </div>
           <div class="input-group">
-            <input v-model="factoryname" required @keyup.enter="btnSignup" />
+            <input v-model="factoryname" required @keyup.enter="submitForm" />
             <label for="">회사명</label>
           </div>
-
-          <!-- <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Company name</label>
-                </div> -->
-          <!-- <div class="remember">
-          <label
-            ><input type="checkbox" /> I agree to the terms & conditions</label
-          >
-        </div> -->
-          <button>Sign Up</button>
+          <button type="button" @click="submitForm">회원가입</button>
           <div class="signup-link">
             <p>
-              Already have an account?
-              <a href="#" @click="activeSignin">Login</a>
+              계정이 이미 있으신가요?
+              <a href="#" @click="activeSignin">로그인</a>
             </p>
           </div>
         </form>
@@ -84,17 +68,20 @@
 <script>
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
+import { registerUser } from '../../api/index'
 
 export default {
   name: 'Signup',
   data() {
     return {
-      userid: null,
-      password: null,
-      passwordVerify: null,
-      email: null,
-      phone: null,
-      factoryname: null
+      userid: '',
+      password: '',
+      s_userid: '',
+      s_password: '',
+      passwordVerify: '',
+      email: '',
+      phone: '',
+      factoryname: ''
     }
   },
   computed: {
@@ -159,30 +146,81 @@ export default {
       })
       console.log('login clicked')
     },
-    verifyPw() {
-      console.log('check pw')
-    },
-    handleSubmit() {
-      const data = {
-        userid: this.userid,
-        password: this.password,
+    async submitForm() {
+      console.log('signup key event')
+      // 비동기 객체가 오기때문에 비동기 처리
+      console.log('submit')
+      const userData = {
+        s_userid: this.s_userid,
+        s_password: this.s_password,
         passwordVerify: this.passwordVerify,
         email: this.email,
         phone: this.phone,
         factoryname: this.factoryname
       }
-      axios.post('http://192.168.0.70:8081/signup', data)
-          .then(
-            res => {
-              console.log(res)
-            }
-          )
-          .catch(
-            err => {
-              console.log(err)
-            }
-          )
-    }
+      console.log(userData)
+      const { data } = await registerUser(userData) // Destructuring
+      this.logMessage = `${data.s_userid}님이 가입되었습니다.`
+      console.log(`${data.s_userid}님이 가입되었습니다`)
+      //template literal(백틱문법) 자바스크립변수를 문자열과 합침
+      this.initForm()
+    },
+    initForm() {
+      this.s_userid = ''
+      this.s_password = ''
+      this.passwordVerify = ''
+      this.email = ''
+      this.phone = ''
+      this.factoryname = ''
+    },
+    verifyPw() {
+      console.log('check pw')
+    },
+    // handleSubmit() {
+    //  const data = {
+    //    userid: this.userid,
+    //    password: this.password,
+    //    passwordVerify: this.passwordVerify,
+    //    email: this.email,
+    //    phone: this.phone,
+    //    factoryname: this.factoryname
+    //  }
+      
+    
+    // async submitForm() {
+    //   //validation 생략
+    //   const userData = {
+    //     s_userid: this.s_userid,
+    //     s_password: this.s_password,
+    //     passwordVerify: this.passwordVerify,
+    //     email: this.email,
+    //     phone: this.phone,
+    //     factoryname: this.factoryname
+    //   }
+
+    //   const response = await registerUser(userData)
+    //   if (response.status == 200) {
+    //     alert('환영합니다.')
+    //     this.$router.push('/auth/login')
+    //   } else {
+    //     alert(response.data)
+    //   }
+    // },
+    // btnSignup() {
+    //   console.log('signup key event')
+    // },
+//      axios.post('http://192.168.0.70:8081/signup', data)
+//          .then(
+//            res => {
+//              console.log(res)
+//            }
+//          )
+//          .catch(
+//            err => {
+//              console.log(err)
+//            }
+//          )
+//    }
     // btnSignup() {
     //   //   this.$store.dispatch('authSignup', {
     //   //     userid: this.userid,
