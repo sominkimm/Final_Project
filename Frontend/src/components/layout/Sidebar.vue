@@ -39,7 +39,7 @@
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="#" @click="$router.push('/mypage')">
               <i class="bx bx-user icon"></i>
               <span class="text nav-text">마이페이지</span>
             </a>

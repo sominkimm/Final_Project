@@ -38,6 +38,10 @@ const routes = [
       {
         path: '/issue',
         component: () => import('../views/board/issue')
+      },
+      {
+        path: '/mypage',
+        component: () => import('../views/profile/mypage')
       }
     ]
   },
