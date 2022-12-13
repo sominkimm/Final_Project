@@ -175,7 +175,7 @@ export default {
     },
     verifyPw() {
       console.log('check pw')
-    },
+    }
     // handleSubmit() {
     //  const data = {
     //    userid: this.userid,
@@ -185,8 +185,7 @@ export default {
     //    phone: this.phone,
     //    factoryname: this.factoryname
     //  }
-      
-    
+
     // async submitForm() {
     //   //validation 생략
     //   const userData = {
@@ -209,18 +208,18 @@ export default {
     // btnSignup() {
     //   console.log('signup key event')
     // },
-//      axios.post('http://192.168.0.70:8081/signup', data)
-//          .then(
-//            res => {
-//              console.log(res)
-//            }
-//          )
-//          .catch(
-//            err => {
-//              console.log(err)
-//            }
-//          )
-//    }
+    //      axios.post('http://192.168.0.70:8081/signup', data)
+    //          .then(
+    //            res => {
+    //              console.log(res)
+    //            }
+    //          )
+    //          .catch(
+    //            err => {
+    //              console.log(err)
+    //            }
+    //          )
+    //    }
     // btnSignup() {
     //   //   this.$store.dispatch('authSignup', {
     //   //     userid: this.userid,
