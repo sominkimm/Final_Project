@@ -11,7 +11,7 @@ class Control {
   }
 
   setControl() {
-    this.controls.minDistance = 10
+    this.controls.minDistance = 20
     this.controls.maxDistance = 50
     this.controls.target.set(0, 0, 0)
     this.controls.enableDamping = true
