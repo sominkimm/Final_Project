@@ -72,8 +72,6 @@
 <script>
 import jwtDecode from 'jwt-decode'
 
-// import { registerUser } from '../../api/index'
-
 export default {
   name: 'Signup',
   data() {
@@ -178,7 +176,6 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
-
     }
     // checkPassword() {
     //   const pw1 = document.querySelector('#pw1').value
