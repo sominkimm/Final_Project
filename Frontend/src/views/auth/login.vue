@@ -178,6 +178,7 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
+
     }
     // checkPassword() {
     //   const pw1 = document.querySelector('#pw1').value
@@ -212,6 +213,7 @@ export default {
     //   })
     //   console.log(response)
     // }
+
     // handleSubmit() {
     //  const data = {
     //    userid: this.userid,
