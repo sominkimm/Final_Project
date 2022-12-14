@@ -2,13 +2,14 @@
   <div class="template">
     <div class="wrapper">
       <div class="form-wrapper sign-in">
-        <form action>
+        <b-form action>
           <h4>Welcome to</h4>
           <h2>Smart Factory!</h2>
           <div class="input-group">
             <input id="input-userid" v-model="userid" type="text" autocomplete="off" required />
             <label for="input-userid">ID</label>
           </div>
+          <!-- <b-form-invalid-feedback class="valid" :state="validation">아이디를 입력하세요</b-form-invalid-feedback> -->
           <div class="input-group">
             <input id="input-password" v-model="password" type="password" required @keyup.enter="onSubmit" />
             <label for="input-password">Password</label>
@@ -20,12 +21,13 @@
               <a href="#" @click="activeSignup">회원가입</a>
             </p>
           </div>
-        </form>
+        </b-form>
       </div>
 
       <!-- @submit.prevent="submitForm" -->
       <div class="form-wrapper sign-up">
-        <form action @submit.prevent="handleSubmit">
+        <form action>
+          <!-- @submit.prevent="handleSubmit" -->
           <h3>회원가입</h3>
 
           <div class="input-group">
@@ -33,11 +35,12 @@
             <label for="">ID</label>
           </div>
           <div class="input-group">
-            <input v-model="s_password" type="password" required />
+            <input id="pw1" v-model="s_password" type="password" required />
             <label for="">Password</label>
           </div>
           <div class="input-group">
-            <input v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
+            <input id="pw2" v-model="passwordVerify" type="password" required />
+            <!-- @submit.prevent="verifyPw" -->
             <label for="">Check Password</label>
           </div>
           <div class="input-group">
@@ -49,10 +52,11 @@
             <label for="">휴대전화</label>
           </div>
           <div class="input-group">
-            <input v-model="factoryname" required @keyup.enter="submitForm" />
+            <input v-model="factoryname" required @keyup.enter="handleSubmit" />
             <label for="">회사명</label>
           </div>
-          <button type="button" @click="submitForm">회원가입</button>
+          <button type="button" @click="handleSubmit">회원가입</button>
+          <!-- @click="submitForm" -->
           <div class="signup-link">
             <p>
               계정이 이미 있으신가요?
@@ -67,8 +71,8 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
-import axios from 'axios'
-import { registerUser } from '../../api/index'
+
+// import { registerUser } from '../../api/index'
 
 export default {
   name: 'Signup',
@@ -78,7 +82,6 @@ export default {
       password: '',
       s_userid: '',
       s_password: '',
-      passwordVerify: '',
       email: '',
       phone: '',
       factoryname: ''
@@ -93,6 +96,9 @@ export default {
     },
     error() {
       return this.$store.getters.TokenError
+    },
+    validation() {
+      return this.userid.length < 1
     }
   },
   watch: {
@@ -146,24 +152,24 @@ export default {
       })
       console.log('login clicked')
     },
-    async submitForm() {
-      console.log('signup key event')
-      // 비동기 객체가 오기때문에 비동기 처리
-      console.log('submit')
+    handleSubmit() {
       const userData = {
         s_userid: this.s_userid,
         s_password: this.s_password,
-        passwordVerify: this.passwordVerify,
         email: this.email,
         phone: this.phone,
         factoryname: this.factoryname
       }
-      console.log(userData)
-      const { data } = await registerUser(userData) // Destructuring
-      this.logMessage = `${data.s_userid}님이 가입되었습니다.`
-      console.log(`${data.s_userid}님이 가입되었습니다`)
-      //template literal(백틱문법) 자바스크립변수를 문자열과 합침
+      this.$store.dispatch('actUserInsert', userData)
+      console.log('signup')
+      //가입 후 폼 초기화
       this.initForm()
+      this.$router.go()
+      // const { data } = await userData // Destructuring
+      // this.logMessage = `${userData.s_userid}님이 가입되었습니다.`
+      alert(`${userData.s_userid}님 회원가입이 완료되었습니다!`)
+      console.log(`${userData.s_userid}님이 가입되었습니다`)
+      //template literal(백틱문법) 자바스크립변수를 문자열과 합침
     },
     initForm() {
       this.s_userid = ''
@@ -172,10 +178,42 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
-    },
-    verifyPw() {
-      console.log('check pw')
+
     }
+    // checkPassword() {
+    //   const pw1 = document.querySelector('#pw1').value
+    //   const pw2 = document.querySelector('#pw2').value
+
+    //   if (pw1.length < 6) {
+    //     pw1.innerHTML = '<div style="color: red; font-size: 12px">비밀번호는 6글자 이상이어야 합니다!</div>'
+    //     return false
+    //   }
+    //   if (pw1 !== pw2) {
+    //     pw2.innerHTML = '<div style="color: red; font-size: 12px">비밀번호가 일치하지 않습니다!</div>'
+    //     return false
+    //   } else {
+    //     pw2.innerHTML = '<div style="color: red; font-size: 12px">비밀번호가 일치합니다!</div>'
+    //     return true
+    //   }
+    // }
+
+    //유튜브 - 회원가입
+    // async handleSubmit(e) {
+    //   e.preventDefault()
+
+    //   console.log('submitted')
+
+    //   const response = await axios.post('', {
+    //     userid: this.s_userid,
+    //     password: this.s_password,
+    //     passwordVerify: this.passwordVerify,
+    //     email: this.email,
+    //     phone: this.phone,
+    //     factoryname: this.factoryname
+    //   })
+    //   console.log(response)
+    // }
+
     // handleSubmit() {
     //  const data = {
     //    userid: this.userid,
@@ -299,7 +337,7 @@ h2 {
   font-size: 26px;
   color: rgba(255, 255, 255, 0.85);
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 h4 {
@@ -316,9 +354,13 @@ h3 {
   margin-top: 15px;
 }
 
+// .valid {
+//   margin-bottom: 15px;
+// }
+
 .sign-in .input-group {
   position: relative;
-  margin: 30px 0;
+  margin: 25px 0;
   border-bottom: 2px solid rgba(255, 255, 255, 0.588);
 }
 
@@ -381,7 +423,7 @@ button {
   border-radius: 30px;
   border: none;
   outline: none;
-  margin-top: 10px;
+  margin-top: 13px;
 }
 
 .signup-link {

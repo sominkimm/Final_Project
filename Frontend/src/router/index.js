@@ -50,11 +50,6 @@ const routes = [
     component: () => import('../views/auth'),
     children: [
       {
-        path: '/auth/signup',
-        component: () => import('../views/auth/signup'),
-        meta: { header: false, noLogin: true }
-      },
-      {
         path: '/auth/login',
         component: () => import('../views/auth/login'),
         meta: { header: false, noLogin: true }

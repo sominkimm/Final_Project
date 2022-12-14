@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-function registerUser() {
-  const url = 'http://192.168.0.70:8081/login'
-  return axios.post(url)
-}
+axios.defaults.baseURL = 'https://localhost:8081/'
 
-export { registerUser }
+// function registerUser() {
+//   const url = 'http://192.168.0.60:8081/'
+//   return axios.post(url)
+// }
+
+// export { registerUser }
