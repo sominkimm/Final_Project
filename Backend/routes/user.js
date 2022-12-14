@@ -10,9 +10,9 @@ router.post('/', async (req, res) => {
     const params = {
       // departmentId: req.body.departmentId,
       factoryname: req.body.factoryname,
-      ceoname: req.body.ceoname,
-      userid: req.body.userid,
-      password: req.body.password,
+      // ceoname: req.body.ceoname,
+      userid: req.body.s_userid,
+      password: req.body.s_password,
       // role: req.body.role,
       email: req.body.email,
       phone: req.body.phone,
@@ -20,7 +20,8 @@ router.post('/', async (req, res) => {
     logger.info(`(user.reg.params) ${JSON.stringify(params)}`);
 
     // 입력값 null 체크
-    if (!params.factoryname || !params.ceoname || !params.userid || !params.password) {
+    // !params.ceoname ||
+    if (!params.factoryname ||  !params.userid || !params.password) {
       const err = new Error('Not allowed null (name, userid, password)');
       logger.error(err.toString());
 
