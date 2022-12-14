@@ -1,8 +1,14 @@
+* {
+  /* font-family: 'Dongle', sans-serif;
+  font-size: 26px; */
+  font-family: 'Gowun Dodum', sans-serif;
+}
 .content-body {
   padding: 5px 20px 20px 20px;
 }
 
-.separate-body {
+/* .separate-body {
   height: 10px;
   background-color: skyblue;
-}
+} */
+
