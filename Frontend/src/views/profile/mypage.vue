@@ -1,40 +1,73 @@
 <template>
-  <div class="wrapper">
-    <div class="form-wrapper sign-up">
-      <form action @submit.prevent="handleSubmit">
-        <h3>Hello Seonhwa</h3>
-        <div class="input-group">
-          <label for="">ID</label>
-          <input v-model="s_userid" type="text" required />
-        </div>
-        <div class="input-group">
-          <label for="">Password</label>
-          <input v-model="s_password" type="password" required />
-        </div>
-        <div class="input-group">
-          <label for="">Check Password</label>
-          <input v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
-        </div>
-        <div class="input-group">
-          <label for="">Email</label>
-          <input v-model="email" type="email" required />
-        </div>
-        <div class="input-group">
-          <label for="">휴대전화</label>
-          <input v-model="phone" type="tel" required />
-        </div>
-        <div class="input-group">
-          <label for="">회사명</label>
-          <input v-model="factoryname" required @keyup.enter="submitForm" />
-        </div>
-        <button type="button" @click="submitForm">수정</button>
-      </form>
-    </div>
-  </div>
+  <b-container>
+    <b-row>
+      <b-col cols="5">
+        <form action @submit.prevent="handleSubmit">
+          <h3>Hello Seonhwa</h3>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">ID</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="s_userid" type="text" required />
+            </b-col>
+          </b-row>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">Password</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="s_password" type="password" required />
+            </b-col>
+          </b-row>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">Check Password</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
+            </b-col>
+          </b-row>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">Email</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="email" type="email" required />
+            </b-col>
+          </b-row>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">휴대전화</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="phone" type="tel" required />
+            </b-col>
+          </b-row>
+          <b-row class="input-group">
+            <b-col cols="1">
+              <label for="">회사명</label>
+            </b-col>
+            <b-col cols="3">
+              <input v-model="factoryname" required @keyup.enter="submitForm" />
+            </b-col>
+          </b-row>
+          <button type="button" @click="submitForm">수정</button>
+        </form>
+      </b-col>
+      <!-- <b-col cols="3">
+        <img :src="data" alt="" />
+      </b-col> -->
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-export default {}
+export default {
+  // data() {
+  //   require('../../assets/images/smart-factory.png')
+  // }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -43,10 +76,12 @@ export default {}
   padding: 0;
   box-sizing: border-box;
 }
-.wrapper {
-  position: relative;
-  margin-top: 100px;
+
+.input-group {
+  margin: 15px 0;
 }
-.form-wrapper {
+
+.input-group input {
+  margin-left: 25px;
 }
 </style>
