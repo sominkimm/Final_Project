@@ -72,8 +72,6 @@
 <script>
 import jwtDecode from 'jwt-decode'
 
-// import { registerUser } from '../../api/index'
-
 export default {
   name: 'Signup',
   data() {
