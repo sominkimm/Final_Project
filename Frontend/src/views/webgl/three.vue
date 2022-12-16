@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Three from '../../example'
+import Three from './example'
 
 export default {
   mounted() {

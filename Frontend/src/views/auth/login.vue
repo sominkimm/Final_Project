@@ -153,6 +153,7 @@ export default {
       console.log('login clicked')
     },
     handleSubmit() {
+      console.log('signup enterkey')
       const userData = {
         s_userid: this.s_userid,
         s_password: this.s_password,
@@ -161,7 +162,6 @@ export default {
         factoryname: this.factoryname
       }
       this.$store.dispatch('actUserInsert', userData)
-      console.log('signup')
       //가입 후 폼 초기화
       this.initForm()
       this.$router.go()
@@ -178,7 +178,6 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
-
     }
     // checkPassword() {
     //   const pw1 = document.querySelector('#pw1').value

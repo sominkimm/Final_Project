@@ -3,13 +3,13 @@
  * 매개변수: 3D 렌더링을 등록 할 Element Type Instance
  * 반환: 3D 렌더링이 등록된 Element Type Instance
  */
-import { Scene } from './assets/scene'
-import { Renderer } from './assets/renderer'
-import { Control } from './assets/control'
-import { Render } from './assets/render'
-import { Event } from './assets/event'
+import { Scene } from '../../assets/scene'
+import { Renderer } from '../../assets/renderer'
+import { Control } from '../../assets/control'
+import { Render } from '../../assets/render'
+import { Event } from '../../assets/event'
 
-import { Gui } from './plugins/gui'
+import { Gui } from '../../plugins/gui'
 
 export default async element => {
   element.style.width = '700px'
