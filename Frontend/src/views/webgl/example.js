@@ -12,8 +12,9 @@ import { Event } from '../../assets/event'
 import { Gui } from '../../plugins/gui'
 
 export default async element => {
-  element.style.width = '700px'
-  element.style.height = '700px'
+  element.style.width = '100vw'
+  element.style.height = '100vh'
+  element.style.position = 'relative'
 
   // Scene Setting
   let scene = new Scene('edukit')
@@ -41,6 +42,14 @@ export default async element => {
   // Rendering Start
   render.start()
 
+  function setSize() {
+    render.camera.aspect = window.innerWidth / window.innerHeight
+    render.camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.render(scene, render.camera)
+  }
+  window.addEventListener('resize', setSize)
+
   // WebGL Context Lost Handling
   renderElement.addEventListener(
     'webglcontextlost',
@@ -66,6 +75,7 @@ export default async element => {
     yAxis: -27,
     xAxis: -4375
   }
+
   gui.addOptions(options)
   gui.addFolder('Example')
 
