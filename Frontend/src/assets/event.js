@@ -6,19 +6,45 @@ import mqtt from 'mqtt'
 
 class Event {
   constructor(element, edukit) {
+    const toggleButtonElement = document.createElement('button')
+    toggleButtonElement.style.position = 'absolute'
+    toggleButtonElement.style.top = '65%'
+    toggleButtonElement.style.left = '80%'
+    // toggleButtonElement.style.width = '50px'
+    toggleButtonElement.style.width = '150px'
+    toggleButtonElement.style.height = '50px'
+    toggleButtonElement.style.background = 'transparent'
+    toggleButtonElement.style.border = 'none'
+    const toggleButton = toggleButtonElement.appendChild(document.createElement('button'))
+    toggleButton.innerText = 'MQTT'
+
+    // toggleButton.innerText = 'MQTT'
+    // toggleButton.style.backgroundColor = 'yellow'
+
     const eventElement = document.createElement('div')
+    eventElement.style.position = 'absolute'
+    eventElement.style.display = 'flex'
+    eventElement.style.flexDirection = 'column'
+    // eventElement.style.marginRight = '0'
+    eventElement.style.top = '65%'
+    eventElement.style.left = '85%'
+    toggleButton.addEventListener('click', () => {
+      toggleButton.classList.toggle(eventElement)
+    })
+
+    // document.template.appendChild(toggleButton)
 
     const inputAddressElement = eventElement.appendChild(document.createElement('input'))
-    inputAddressElement.placeholder = 'MQTT Host 입력'
+    inputAddressElement.placeholder = 'MQTT Host'
 
     const inputPortElement = eventElement.appendChild(document.createElement('input'))
-    inputPortElement.placeholder = 'MQTT Port 입력'
+    inputPortElement.placeholder = 'MQTT Port'
 
     const inputPathElement = eventElement.appendChild(document.createElement('input'))
-    inputPathElement.placeholder = 'MQTT Path 입력'
+    inputPathElement.placeholder = 'MQTT Path'
 
     const inputTopicElement = eventElement.appendChild(document.createElement('input'))
-    inputTopicElement.placeholder = 'MQTT Topic 입력'
+    inputTopicElement.placeholder = 'MQTT Topic'
 
     const buttonElement = eventElement.appendChild(document.createElement('button'))
     buttonElement.innerText = 'Connect'
@@ -26,7 +52,12 @@ class Event {
     const statusElement = eventElement.appendChild(document.createElement('span'))
     statusElement.innerText = '연결'
     statusElement.style.color = 'red'
-
+    // const toggleButton = eventElement.appendChild(document.createElement('button'))
+    // toggleButton.innerText = 'test'
+    // toggleButton.style.position = 'absolute'
+    // toggleButton.style.top = '50%'
+    // toggleButton.style.right = '50%'
+    // toggleButton.style.width = '50px'
     buttonElement.addEventListener('click', () => {
       let props = {
         hostname: inputAddressElement.value,
@@ -43,6 +74,7 @@ class Event {
     })
 
     element.appendChild(eventElement)
+    element.appendChild(toggleButtonElement)
   }
 
   setEvent(props) {

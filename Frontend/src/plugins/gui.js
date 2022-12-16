@@ -7,8 +7,10 @@ import * as dat from 'dat.gui'
 class Gui {
   constructor(element) {
     this.gui = new dat.GUI({ autoPlace: false })
-    this.gui.domElement.style.position = 'relative'
+    this.gui.domElement.style.position = 'absolute'
     this.gui.domElement.style.flex = 'none'
+    this.gui.domElement.style.top = '5%'
+    this.gui.domElement.style.left = '82%'
     element.style.display = 'inline-flex'
 
     element.appendChild(this.gui.domElement)
