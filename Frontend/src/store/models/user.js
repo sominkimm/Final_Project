@@ -3,17 +3,17 @@ import api from '../apiUtil'
 // 초기값 선언
 const stateInit = {
   User: {
-    id: null,
-    departmentId: null,
-    name: null,
+    // id: null,
+    // departmentId: null,
+    factoryname: null,
     userid: null,
     password: null,
-    role: null,
+    // role: null,
     email: null,
-    phone: null,
-    updatedPwDate: null,
-    createdAt: null,
-    updatedAt: null
+    phone: null
+    // updatedPwDate: null,
+    // createdAt: null,
+    // updatedAt: null
   }
 }
 

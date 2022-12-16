@@ -11,38 +11,45 @@
       <div class="menu">
         <ul class="menu-links">
           <li class="nav-link">
-            <a href="#" @click="$router.push('/dashboard')">
+            <router-link to="/dashboard" active-class="active" class="nav-item">
               <i class="bx bx-home-alt icon"></i>
               <span class="text nav-text">대시보드</span>
-            </a>
+            </router-link>
           </li>
 
-          <li class="nav-link">
+          <!-- <li class="nav-link">
             <a href="#" @click="$router.push('/three')">
               <i class="bx bx-tachometer icon"></i>
               <span class="text nav-text">모니터링 (WebGL)</span>
             </a>
+          </li> -->
+
+          <li class="nav-link">
+            <router-link to="/three" active-class="active" class="nav-item">
+              <i class="bx bx-tachometer icon"></i>
+              <span class="text nav-text">모니터링 (WebGL)</span>
+            </router-link>
           </li>
 
           <li class="nav-link">
-            <a href="#" @click="$router.push('/user')">
+            <router-link to="/user" active-class="active" class="nav-item">
               <i class="bx bx-bell icon"></i>
               <span class="text nav-text">작업 현황</span>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-link">
-            <a href="#" @click="$router.push('/issue')">
+            <router-link to="/issue" active-class="active" class="nav-item">
               <i class="bx bx-chat icon"></i>
               <span class="text nav-text">인수인계</span>
-            </a>
+            </router-link>
           </li>
 
           <li class="nav-link">
-            <a href="#" @click="$router.push('/mypage')">
+            <router-link to="/mypage" active-class="active" class="nav-item">
               <i class="bx bx-user icon"></i>
               <span class="text nav-text">마이페이지</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -186,7 +193,7 @@ export default {
   margin-top: 40px;
 }
 
-.sidebar li a,
+.sidebar li .nav-item,
 .sidebar li .log-out {
   list-style: none;
   height: 100%;
@@ -200,12 +207,19 @@ export default {
   transition: all 0.3s ease;
 }
 
-.sidebar li a:hover,
+.sidebar li .nav-item:hover,
+.sidebar li .nav-item:active {
+  background-color: #fff;
+}
 .sidebar li .log-out:hover {
   background-color: #fff;
 }
-.sidebar li a:hover .icon,
-.sidebar li a:hover .text,
+.sidebar li .nav-item:hover .icon,
+.sidebar li .nav-item:hover .text,
+.sidebar li .nav-item:active .icon,
+.sidebar li .nav-item:active .text {
+  color: #000;
+}
 .sidebar li .log-out:hover .icon {
   color: #000;
 }
