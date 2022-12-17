@@ -2,7 +2,7 @@
   <b-modal
     id="modal-prevent-closing"
     ref="modal"
-    title="작업 보고"
+    title="getTitle"
     :visible="visible"
     @show="resetModal"
     @hidden="hide"
@@ -11,7 +11,7 @@
   >
     <form ref="form" @submit.stop.prevent="handleSubmit">
       <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
-        <b-form-input id="name-input" v-model="tName" :state="nameState" required />
+        <b-form-input v-if="inputMode === 'insert'" id="name-input" v-model="tName" :state="nameState" required />
       </b-form-group>
 
       <b-form-group
@@ -21,6 +21,7 @@
         :state="datepickerState"
       >
         <b-form-datepicker
+          v-if="inputMode === 'insert'"
           id="datepicker-placeholder"
           v-model="takeoverDate"
           placeholder="날짜를 선택하세요"
@@ -35,10 +36,11 @@
         :state="titleState"
         style="margin-top: 7px"
       >
-        <b-form-input id="title-input" v-model="tTitle" :state="titleState" required />
+        <b-form-input v-if="inputMode === 'insert'" id="title-input" v-model="tTitle" :state="titleState" required />
       </b-form-group>
       <b-form-group label="내용" label-for="content-input" invalid-feedback="내용을 입력하세요" :state="contentState">
         <b-form-textarea
+          v-if="inputMode === 'insert'"
           id="content-input"
           v-model="tContents"
           :state="contentState"
@@ -68,24 +70,48 @@ export default {
   },
   data() {
     return {
-      tName: '',
-      nameState: null,
-      takeoverDate: '',
-      datepickerState: null,
-      tTitle: '',
-      titleState: null,
-      tContents: '',
-      contentState: null
+      takeover: {
+        tName: '',
+        nameState: null,
+        takeoverDate: '',
+        datepickerState: null,
+        tTitle: '',
+        titleState: null,
+        tContents: '',
+        contentState: null
+      }
     }
   },
   computed: {
-    ...mapGetters('User', ['User']),
+    ...mapGetters('Board', ['Board']),
     dialog(props) {
       return props.openDialog
+    },
+    infoData() {
+      return this.$store.getters.Board
+    },
+    getTitle() {
+      let title = ''
+      if (this.inputMode === 'insert') {
+        title = '인수인계 작성'
+      } else if (this.inputMode === 'update') {
+        title = '인수인계 수정'
+      }
+
+      return title
+    }
+  },
+  watch: {
+    infoData(value) {
+      this.takeover = { ...value }
+      this.setDefaultValues()
     }
   },
   created() {
-    console.log(this.actUserUpdate())
+    this.takeover = { ...this.infoData }
+    this.setDefaultValues()
+    // this.$store.dispatch('')
+    // console.log(this.actUserUpdate())
   },
   methods: {
     ...mapActions('Board', ['actBoardInsert', 'actBoardInfo']),
@@ -120,7 +146,12 @@ export default {
         tContents: this.tContents,
         takeoverDate: this.takeoverDate
       }
-
+      if (this.inputMode === 'insert') {
+        this.$store.dispatch('actBoardInsert', this.takeover) // 입력 실행
+      }
+      if (this.inputMode === 'update') {
+        this.$store.dispatch('actBoardUpdate', this.takeover) // 수정 실행
+      }
       this.actBoardInsert(data)
       this.actBoardInfo(data)
 
@@ -143,6 +174,14 @@ export default {
     change(visible) {
       this.$emit('change', visible)
     }
+    // onSubmit() {
+    //   if (this.inputMode === 'insert') {
+    //     this.$store.dispatch('actBoardInsert', this.takeover) // 입력 실행
+    //   }
+    //   if (this.inputMode === 'update') {
+    //     this.$store.dispatch('actBoardUpdate', this.takeover) // 수정 실행
+    //   }
+    // }
   }
 }
 </script>
