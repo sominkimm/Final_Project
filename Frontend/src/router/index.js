@@ -42,6 +42,10 @@ const routes = [
       {
         path: '/mypage',
         component: () => import('../views/profile/mypage')
+      },
+      {
+        path: '/workdaily',
+        component: () => import('../views/user/workdaily')
       }
     ]
   },

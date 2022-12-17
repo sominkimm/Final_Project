@@ -67,7 +67,6 @@
 
 <script>
 export default {
-
   data() {
     return {
       userid: '',
@@ -92,7 +91,6 @@ export default {
   // data() {
   //   require('../../assets/images/smart-factory.png')
   // }
-
 }
 </script>
 
