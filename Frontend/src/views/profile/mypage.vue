@@ -49,7 +49,7 @@
               <label for="">회사명</label>
             </b-col>
             <b-col cols="5">
-              <input id="factoryname" v-model="factoryname" required @keyup.enter="submitForm" />
+              <input id="factoryname" v-model="factoryname" required @keyup.enter="edit_profile" />
             </b-col>
           </b-row>
           <b-row>
@@ -67,6 +67,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       userid: '',
@@ -88,6 +89,10 @@ export default {
       return this.$store.getters.User
     }
   }
+  // data() {
+  //   require('../../assets/images/smart-factory.png')
+  // }
+
 }
 </script>
 
