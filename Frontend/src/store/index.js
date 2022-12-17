@@ -7,6 +7,8 @@ import Board from './models/board'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  // strict 배포시 성능이슈 발생할 가능성있어 고정값 대신 환경변수 사용
+  strict: process.env.NODE_ENV !== 'production',
   modules: {
     Auth,
     User,

@@ -2,14 +2,14 @@
   <b-modal
     id="modal-prevent-closing"
     ref="modal"
-    title="getTitle"
+    :title="getTitle"
     :visible="visible"
     @show="resetModal"
     @hidden="hide"
     @change="change"
     @ok="handleOk"
   >
-    <form ref="form" @submit.stop.prevent="handleSubmit">
+    <form ref="form" @submit.stop.prevent="handleOk">
       <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
         <b-form-input v-if="inputMode === 'insert'" id="name-input" v-model="tName" :state="nameState" required />
       </b-form-group>
@@ -70,25 +70,27 @@ export default {
   },
   data() {
     return {
-      takeover: {
-        tName: '',
-        nameState: null,
-        takeoverDate: '',
-        datepickerState: null,
-        tTitle: '',
-        titleState: null,
-        tContents: '',
-        contentState: null
-      }
+      tName: '',
+      nameState: null,
+      takeoverDate: '',
+      datepickerState: null,
+      tTitle: '',
+      titleState: null,
+      tContents: '',
+      contentState: null
     }
   },
   computed: {
-    ...mapGetters('Board', ['Board']),
+    ...mapGetters('Board', { board: 'Board' }),
     dialog(props) {
       return props.openDialog
     },
     infoData() {
-      return this.$store.getters.Board
+      console.log(this.board)
+      return this.board
+    },
+    inputMode() {
+      return this.$store.getters.BoardInputMode
     },
     getTitle() {
       let title = ''
@@ -101,20 +103,27 @@ export default {
       return title
     }
   },
-  watch: {
-    infoData(value) {
-      this.takeover = { ...value }
-      this.setDefaultValues()
-    }
-  },
-  created() {
-    this.takeover = { ...this.infoData }
-    this.setDefaultValues()
-    // this.$store.dispatch('')
-    // console.log(this.actUserUpdate())
-  },
+  // watch: {
+  //   infoData(value) {
+  //     if (value && value.id) {
+  //       this.tName = value.tName
+  //       this.takeoverDate = value.takeoverDate
+  //       this.tTitle = value.tTitle
+  //       this.tContents = value.tContents
+  //     }
+  //     this.board = { ...value }
+  //     this.setDefaultValues()
+  //   }
+  // },
+  // created() {
+  // this.takeover = { ...this.infoData }
+  // this.setDefaultValues()
+  // this.
+  // this.$store.dispatch('')
+  // console.log(this.actUserUpdate())
+  // },
   methods: {
-    ...mapActions('Board', ['actBoardInsert', 'actBoardInfo']),
+    ...mapActions('Board', ['actBoardInsert']),
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity()
       this.titleState = valid
@@ -137,35 +146,37 @@ export default {
       // Prevent modal from closing
       bvModalEvent.preventDefault()
       // Trigger submit handler
+      console.log('??')
       this.handleSubmit()
-
-      let data = {
-        id: this.User.userid,
-        tName: this.tName,
-        tTitle: this.tTitle,
-        tContents: this.tContents,
-        takeoverDate: this.takeoverDate
-      }
-      if (this.inputMode === 'insert') {
-        this.$store.dispatch('actBoardInsert', this.takeover) // 입력 실행
-      }
-      if (this.inputMode === 'update') {
-        this.$store.dispatch('actBoardUpdate', this.takeover) // 수정 실행
-      }
-      this.actBoardInsert(data)
-      this.actBoardInfo(data)
-
-      // this.$store.dispatch('actUserInsert', this.user) // 입력 실행
     },
     handleSubmit() {
       // Exit when the form isn't valid
       if (!this.checkFormValidity()) {
         return
       }
-      this.$nextTick(() => {
-        // this.$emit('closeDialog')
-        // this.$bvModal.hide('modal-prevent-closing')
-      })
+      let boardData = {
+        // id: this.User.id,
+        tName: this.tName,
+        tTitle: this.tTitle,
+        tContents: this.tContents,
+        takeoverDate: this.takeoverDate
+      }
+      this.$store.dispatch('actBoardInsert', boardData)
+      console.log(boardData)
+      this.initForm()
+      console.log(boardData)
+      this.$router.go()
+      alert(`등록되었습니다!`)
+      // this.$nextTick(() => {
+      // this.$emit('closeDialog')
+      // this.$bvModal.hide('modal-prevent-closing')
+      // })
+    },
+    initForm() {
+      this.tName = ''
+      this.takeoverDate = ''
+      this.tTitle = ''
+      this.tContents = ''
     },
     hide() {
       // this.resetModal()

@@ -2,7 +2,7 @@
   <b-modal
     id="modal-prevent-closing-edit"
     ref="modal"
-    title="인수인계"
+    title="인수인계 수정"
     :visible="visible"
     @show="resetModal"
     @hidden="hide"
@@ -88,10 +88,20 @@ export default {
     dialog(props) {
       return props.openDialog
     }
+    // getTitle() {
+    //   let title = ''
+    //   if (this.inputMode === 'insert') {
+    //     title = '인수인계 작성'
+    //   } else if (this.inputMode === 'update') {
+    //     title = '인수인계 수정'
+    //   }
+
+    //   return title
+    // }
   },
-  created() {
-    console.log(this.actUserUpdate())
-  },
+  // created() {
+  //   console.log(this.actUserUpdate())
+  // },
   methods: {
     ...mapActions('Board', ['actBoardInsert', 'actBoardInfo']),
     checkFormValidity() {
