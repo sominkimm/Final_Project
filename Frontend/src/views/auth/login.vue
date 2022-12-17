@@ -71,7 +71,7 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
-
+// import axios from 'axios'
 export default {
   name: 'Signup',
   data() {
@@ -243,7 +243,7 @@ export default {
     // btnSignup() {
     //   console.log('signup key event')
     // },
-    //      axios.post('http://192.168.0.70:8081/signup', data)
+    //      axios.post('http://192.168.0.79:8080/signup', data)
     //          .then(
     //            res => {
     //              console.log(res)
@@ -254,16 +254,15 @@ export default {
     //              console.log(err)
     //            }
     //          )
-    //    }
     // btnSignup() {
-    //   //   this.$store.dispatch('authSignup', {
-    //   //     userid: this.userid,
-    //   //     password: this.password,
-    //   //     passwordVerify: this.passwordVerify,
-    //   //     email: this.email,
-    //   //     phone: this.phone,
-    //   //     factoryname: this.factoryname
-    //   //   })
+    //   this.$store.dispatch('authSignup', {
+    //     userid: this.userid,
+    //     password: this.password,
+    //     passwordVerify: this.passwordVerify,
+    //     email: this.email,
+    //     phone: this.phone,
+    //     factoryname: this.factoryname
+    //   })
     //   console.log('signup clicked')
     // }
   }

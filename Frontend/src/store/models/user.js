@@ -32,7 +32,10 @@ export default {
     UserInsertedResult: state => state.InsertedResult,
     UserUpdatedResult: state => state.UpdatedResult,
     UserDeletedResult: state => state.DeletedResult,
-    UserInputMode: state => state.InputMode
+    UserInputMode: state => state.InputMode,
+    count(state) {
+      return state.count
+    }
   },
   mutations: {
     setUserList(state, data) {
@@ -195,18 +198,9 @@ export default {
     actUserUpdate(context, payload) {
       // 상태값 초기화
       context.commit('setUpdatedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const updatedResult = 1
-        context.commit('setUpdatedResult', updatedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-      */
-
       /* RestAPI 호출 */
       api
-        .put(`/serverApi/users/${payload.id}`, payload)
+        .put(`/serverApi/users/${payload.s_userid}`, payload)
         .then(response => {
           const updatedResult = response && response.data && response.data.updatedCount
           context.commit('setUpdatedResult', updatedResult)
@@ -221,7 +215,6 @@ export default {
     actUserDelete(context, payload) {
       // 상태값 초기화
       context.commit('setDeletedResult', null)
-
       /* 테스트 데이터 세팅 */
       /*
       setTimeout(() => {
