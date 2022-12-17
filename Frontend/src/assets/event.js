@@ -3,20 +3,24 @@
  * 방식은 자유지만 본 프로젝트에서는 mqtt를 사용함
  */
 import mqtt from 'mqtt'
+import * as dat from 'dat.gui'
 
 class Event {
   constructor(element, edukit) {
-    const toggleButtonElement = document.createElement('button')
-    toggleButtonElement.style.position = 'absolute'
-    toggleButtonElement.style.top = '65%'
-    toggleButtonElement.style.left = '80%'
+    this.gui = new dat.GUI({ autoPlace: false })
+
+    // const toggleButtonElement = document.createElement('button')
+    // toggleButtonElement.style.position = 'absolute'
+    // toggleButtonElement.style.top = '65%'
+    // toggleButtonElement.style.left = '80%'
     // toggleButtonElement.style.width = '50px'
-    toggleButtonElement.style.width = '150px'
-    toggleButtonElement.style.height = '50px'
-    toggleButtonElement.style.background = 'transparent'
-    toggleButtonElement.style.border = 'none'
-    const toggleButton = toggleButtonElement.appendChild(document.createElement('button'))
-    toggleButton.innerText = 'MQTT'
+    // toggleButtonElement.style.width = '150px'
+    // toggleButtonElement.style.height = '50px'
+    // toggleButtonElement.style.background = 'transparent'
+    // toggleButtonElement.style.border = 'none'
+    // const toggleButton = toggleButtonElement.appendChild(document.createElement('button'))
+    // toggleButton.innerText = 'MQTT'
+    // toggleButton.style.
 
     // toggleButton.innerText = 'MQTT'
     // toggleButton.style.backgroundColor = 'yellow'
@@ -28,9 +32,9 @@ class Event {
     // eventElement.style.marginRight = '0'
     eventElement.style.top = '65%'
     eventElement.style.left = '85%'
-    toggleButton.addEventListener('click', () => {
-      toggleButton.classList.toggle(eventElement)
-    })
+    // toggleButton.addEventListener('click', () => {
+    //   toggleButton.classList.toggle(eventElement)
+    // })
 
     // document.template.appendChild(toggleButton)
 
@@ -74,7 +78,7 @@ class Event {
     })
 
     element.appendChild(eventElement)
-    element.appendChild(toggleButtonElement)
+    // element.appendChild(toggleButtonElement)
   }
 
   setEvent(props) {

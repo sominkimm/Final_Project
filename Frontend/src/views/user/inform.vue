@@ -21,8 +21,8 @@
             </template>
           </b-form-select>
         </b-form-group>
-        <b-form-group label="아이디" label-for="userid" label-cols="3">
-          <b-form-input id="userid" v-model="user.userid" />
+        <b-form-group label="No" label-for="indexNum" label-cols="3">
+          <b-form-input id="indexNum" v-model="status.indexNum" />
         </b-form-group>
         <b-form-group label="비밀번호" label-for="password" label-cols="3">
           <b-form-input v-if="inputMode === 'insert'" id="password" v-model="user.password" type="password" />

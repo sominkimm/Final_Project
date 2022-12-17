@@ -2,57 +2,60 @@
   <b-container>
     <b-row>
       <b-col cols="5">
-        <form action @submit.prevent="handleSubmit">
+        <form action>
           <h3>Hello Seonhwa</h3>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">ID</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="s_userid" type="text" required />
+            <b-col cols="5">
+              <input id="userid" v-model="userid" type="text" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">Password</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="s_password" type="password" required />
+            <b-col cols="5">
+              <input id="password" v-model="password" type="password" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">Check Password</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
+            <b-col cols="5">
+              <input id="passwordVerify" v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
             </b-col>
           </b-row>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">Email</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="email" type="email" required />
+            <b-col cols="5">
+              <input id="email" v-model="email" type="email" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">휴대전화</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="phone" type="tel" required />
+            <b-col cols="5">
+              <input id="phone" v-model="phone" type="tel" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
-            <b-col cols="1">
+            <b-col cols="2">
               <label for="">회사명</label>
             </b-col>
-            <b-col cols="3">
-              <input v-model="factoryname" required @keyup.enter="submitForm" />
+            <b-col cols="5">
+              <input id="factoryname" v-model="factoryname" required @keyup.enter="edit_profile" />
             </b-col>
           </b-row>
-          <button type="button" @click="submitForm">수정</button>
+          <b-row>
+            <button type="button" class="btn_edit" @click="edit_profile">수정</button>
+            <button type="button" class="btn_edit" @click="delete_profile">삭제</button>
+          </b-row>
         </form>
       </b-col>
       <!-- <b-col cols="3">
@@ -64,9 +67,32 @@
 
 <script>
 export default {
+
+  data() {
+    return {
+      userid: '',
+      password: '',
+      email: '',
+      phone: '',
+      factoryname: ''
+    }
+  },
+  computed: {
+    isLoggedin() {
+      let login = false
+      if (this.$store.getters.TokenUser && this.$store.getters.TokenUser.id > 0) {
+        login = true
+      }
+      return login
+    },
+    infoData() {
+      return this.$store.getters.User
+    }
+  }
   // data() {
   //   require('../../assets/images/smart-factory.png')
   // }
+
 }
 </script>
 
@@ -75,6 +101,13 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  justify-content: center;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 120px;
+  margin-bottom: 50px;
 }
 
 .input-group {
@@ -83,5 +116,9 @@ export default {
 
 .input-group input {
   margin-left: 25px;
+}
+
+.btn_edit {
+  margin-top: 40px;
 }
 </style>

@@ -1,44 +1,39 @@
 import api from '../apiUtil'
 
 // 초기값 선언
+// 보드 DB랑 일치 시키자
 const stateInit = {
-  User: {
-    // id: null,
-    // departmentId: null,
-    factoryname: null,
-    userid: null,
-    password: null,
-    // role: null,
-    email: null,
-    phone: null
-    // updatedPwDate: null,
-    // createdAt: null,
-    // updatedAt: null
+  Board: {
+    boardid: '',
+    tName: '',
+    tTitle: '',
+    tContents: '',
+    takeoverDate: ''
   }
 }
 
 export default {
   state: {
-    UserList: [],
-    User: { ...stateInit.User },
+    BoardList: [],
+    Board: { ...stateInit.Board },
     InsertedResult: null,
     UpdatedResult: null,
     DeletedResult: null,
     InputMode: null
   },
   getters: {
-    UserList: state => state.UserList,
-    User: state => state.User,
-    UserInsertedResult: state => state.InsertedResult,
-    UserUpdatedResult: state => state.UpdatedResult,
-    UserDeletedResult: state => state.DeletedResult,
-    UserInputMode: state => state.InputMode
+    BoardList: state => state.BoardList,
+    Board: state => state.Board,
+    BoardInsertedResult: state => state.InsertedResult,
+    BoardUpdatedResult: state => state.UpdatedResult,
+    BoardDeletedResult: state => state.DeletedResult,
+    BoardInputMode: state => state.InputMode
   },
   mutations: {
-    setUserList(state, data) {
+    setBoardList(state, data) {
       state.UserList = data
     },
-    setUser(state, data) {
+    setBoard(state, data) {
       state.User = data
     },
     setInsertedResult(state, data) {
@@ -56,36 +51,7 @@ export default {
   },
   actions: {
     // 리스트 조회
-    actUserList(context, payload) {
-      /* 테스트 데이터 세팅 */
-      /*
-      const UserList = [
-        {
-          id: 1,
-          departmentId: 1,
-          name: '홍길동',
-          userid: 'hong',
-          role: 'leader',
-          email: 'hong@email.com',
-          phone: '010-1234-5678',
-          createdAt: '2021-12-01T00:00:00.000Z',
-          Department: { id: 1, name: '개발팀', code: 'dev', createdAt: '2021-12-01T00:00:00.000Z' }
-        },
-        {
-          id: 2,
-          departmentId: 2,
-          name: '김길동',
-          userid: 'kim',
-          role: 'member',
-          email: 'kim@email.com',
-          phone: '010-9876-5432',
-          createdAt: '2021-12-01T00:00:00.000Z',
-          Department: { id: 2, name: '영업팀', code: 'sales', createdAt: '2021-12-01T00:00:00.000Z' }
-        }
-      ]
-      context.commit('setUserList', UserList)
-      */
-
+    actBoardList(context, payload) {
       /* RestAPI 호출 */
       api
         .get('/serverApi/users', { params: payload })
@@ -100,7 +66,7 @@ export default {
         })
     },
     // 등록
-    actUserInsert(context, payload) {
+    actBoardInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
 
@@ -114,7 +80,7 @@ export default {
 
       /* RestAPI 호출 */
       api
-        .post('/serverApi/users', payload)
+        .post(`/takeovers/${payload.id}`, payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id
           context.commit('setInsertedResult', insertedResult)
@@ -126,57 +92,17 @@ export default {
         })
     },
     // 초기화
-    actUserInit(context, payload) {
+    actBoardInit(context, payload) {
       context.commit('setUser', { ...stateInit.User })
     },
     // 입력모드
-    actUserInputMode(context, payload) {
+    actBoardInputMode(context, payload) {
       context.commit('setInputMode', payload)
     },
     // 상세정보 조회
-    actUserInfo(context, payload) {
+    actBoardInfo(context, payload) {
       // 상태값 초기화
       context.commit('setUser', { ...stateInit.User })
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const UserList = [
-          {
-            id: 1,
-            departmentId: 1,
-            name: '홍길동',
-            userid: 'hong',
-            role: 'leader',
-            email: 'hong@email.com',
-            phone: '010-1234-5678',
-            updatedPwDate: '2021-12-01T00:00:00.000Z',
-            createdAt: '2021-12-01T00:00:00.000Z',
-            Department: { id: 1, name: '개발팀', code: 'dev', createdAt: '2021-12-01T00:00:00.000Z' }
-          },
-          {
-            id: 2,
-            departmentId: 2,
-            name: '김길동',
-            userid: 'kim',
-            role: 'member',
-            email: 'kim@email.com',
-            phone: '010-9876-5432',
-            updatedPwDate: '2021-12-01T00:00:00.000Z',
-            createdAt: '2021-12-01T00:00:00.000Z',
-            Department: { id: 2, name: '영업팀', code: 'sales', createdAt: '2021-12-01T00:00:00.000Z' }
-          }
-        ]
-
-        let User = { ...stateInit.User }
-        for (let i = 0; i < UserList.length; i += 1) {
-          if (payload === UserList[i].id) {
-            User = { ...UserList[i] }
-          }
-        }
-        context.commit('setUser', User)
-      }, 300)
-      */
 
       /* RestAPI 호출 */
       api
@@ -192,7 +118,7 @@ export default {
         })
     },
     // 수정
-    actUserUpdate(context, payload) {
+    actBoardUpdate(context, payload) {
       // 상태값 초기화
       context.commit('setUpdatedResult', null)
 
@@ -218,7 +144,7 @@ export default {
         })
     },
     // 삭제
-    actUserDelete(context, payload) {
+    actBoardDelete(context, payload) {
       // 상태값 초기화
       context.commit('setDeletedResult', null)
 
