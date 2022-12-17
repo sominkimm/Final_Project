@@ -1957,7 +1957,7 @@ eyUBfgtGGfkvZCYu3PG/jgJeww97gtKvLsQGKQrEsAh2/1bw5Wnd+RKf3atw5zB0k5FiJA/i6TKUBy5u
 - 토큰 갱신은 응답헤더의 `token`으로 한다.
 
 ### 토큰 폐기 정책
-- 토큰 폐기시 로그아웃에 대한 후속 처리는 별도로 하지 않는다.
+- 토큰 폐기시 에 대한 후속 처리는 별도로 하지 않는다.
 
 
 ## 토큰 발행

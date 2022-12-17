@@ -71,6 +71,7 @@
 
 <script>
 import jwtDecode from 'jwt-decode'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Signup',
@@ -86,9 +87,10 @@ export default {
     }
   },
   computed: {
-    tokenUser() {
-      return this.$store.getters.TokenUser
-    },
+    ...mapGetters('Auth', ['TokenUser']),
+    // tokenUser() {
+    //   return this.TokenUSer
+    // },
     loading() {
       return this.$store.getters.TokenLoading
     },
@@ -100,7 +102,8 @@ export default {
     }
   },
   watch: {
-    tokenUser(value) {
+    TokenUser(value) {
+      console.log(value)
       if (value && value.id && value.id > 0) {
         // 로그인이 완료된 상황
         this.$router.push('/home') // 메인 페이지 이동
@@ -135,6 +138,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions('Auth', ['authLogin']),
+    ...mapActions('User', ['actUserInsert']),
     activeSignup() {
       const wrapper = document.querySelector('.wrapper')
       wrapper.classList.toggle('active')
@@ -144,7 +149,8 @@ export default {
       wrapper.classList.toggle('active')
     },
     onSubmit() {
-      this.$store.dispatch('authLogin', {
+      // console.log(this.$store.dispatch)
+      this.authLogin({
         userid: this.userid,
         password: this.password
       })
@@ -159,7 +165,7 @@ export default {
         phone: this.phone,
         factoryname: this.factoryname
       }
-      this.$store.dispatch('actUserInsert', userData)
+      this.actUserInsert(userData)
       //가입 후 폼 초기화
       this.initForm()
       this.$router.go()

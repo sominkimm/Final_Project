@@ -18,6 +18,7 @@ const stateInit = {
 }
 
 export default {
+  namespaced: true,
   state: {
     UserList: [],
     User: { ...stateInit.User },
@@ -137,7 +138,8 @@ export default {
     actUserInfo(context, payload) {
       // 상태값 초기화
       context.commit('setUser', { ...stateInit.User })
-
+      // api 호출
+      // 가져온 값 param
       /* 테스트 데이터 세팅 */
       /*
       setTimeout(() => {
@@ -182,6 +184,7 @@ export default {
       api
         .get(`/serverApi/users/${payload}`)
         .then(response => {
+          console.log(response)
           const user = response && response.data
           context.commit('setUser', user)
         })

@@ -53,19 +53,9 @@
           </li>
         </ul>
       </div>
-      <div v-if="isLoggedin" class="sidebar-footer">
+      <div class="sidebar-footer">
         <li class="bottom-content">
-          <!-- <a href="#">
-            <i class="bx bx-log-out icon"></i>
-            <span class="text nav-text">Logout</span>
-          </a> -->
-          <!-- <div class="admin-profile hide">
-            <div class="admin-info">
-              <h3>김선화</h3>
-              <h5>Admin</h5> 
-            </div>
-          </div> -->
-          <b-button href="#" class="log-out" @click="onClick('/auth/logout')">
+          <b-button v-if="isLoggedin" href="#" class="log-out" @click="onClick('/auth/logout')">
             <i class="bx bx-log-out icon"></i>
           </b-button>
         </li>
@@ -75,14 +65,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
+    ...mapGetters('User', { user: 'User' }),
+    ...mapGetters('Auth', ['TokenUser']),
     isLoggedin() {
       let login = false
-      if (this.$store.getters.TokenUser && this.$store.getters.TokenUser.id > 0) {
+      if (this.TokenUser && this.TokenUser.id > 0) {
         login = true
       }
-
       return login
     }
     // tokenUserName() {

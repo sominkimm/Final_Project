@@ -81,10 +81,10 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const params = {
-      id: req.params.id,
+      // id: req.params.id,
       // departmentId: req.body.departmentId,
       factoryname: req.body.factoryname,
-      ceoname: req.body.ceoname,
+      password: req.body.s_password,
       // role: req.body.role,
       email: req.body.email,
       phone: req.body.phone,

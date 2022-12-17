@@ -3,13 +3,14 @@
     <b-row>
       <b-col cols="5">
         <form action>
-          <h3>Hello Seonhwa</h3>
+          <h3>Hello {{ TokenUser.factoryname }}</h3>
           <b-row class="input-group">
             <b-col cols="2">
               <label for="">ID</label>
             </b-col>
             <b-col cols="5">
-              <input id="userid" v-model="userid" type="text" required />
+              <!-- <input id="userid" v-model="userid" type="text" required /> -->
+              <span>{{ TokenUser.userid }}</span>
             </b-col>
           </b-row>
           <b-row class="input-group">
@@ -17,7 +18,7 @@
               <label for="">Password</label>
             </b-col>
             <b-col cols="5">
-              <input id="password" v-model="password" type="password" required />
+              <input id="password" v-model="s_password" type="password" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
@@ -54,7 +55,7 @@
           </b-row>
           <b-row>
             <button type="button" class="btn_edit" @click="edit_profile">수정</button>
-            <button type="button" class="btn_edit" @click="delete_profile">삭제</button>
+            <button type="button" class="btn_delete" @click="delete_profile">삭제</button>
           </b-row>
         </form>
       </b-col>
@@ -66,33 +67,66 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
-
   data() {
     return {
-      userid: '',
-      password: '',
-      email: '',
-      phone: '',
-      factoryname: ''
+      userid: null,
+      password: null,
+      email: null,
+      phone: null,
+      factoryname: null
     }
   },
   computed: {
-    isLoggedin() {
-      let login = false
-      if (this.$store.getters.TokenUser && this.$store.getters.TokenUser.id > 0) {
-        login = true
-      }
-      return login
-    },
+    ...mapGetters('User', { user: 'User' }),
+    ...mapGetters('Auth', ['TokenUser']),
     infoData() {
-      return this.$store.getters.User
+      console.log(this.user)
+      return this.user
     }
+  },
+  watch: {
+    infoData(value) {
+      if (value && value.id) {
+        this.userid = value.userid
+        this.email = value.email
+        this.phone = value.phone
+        this.factoryname = value.factoryname
+      }
+    }
+  },
+  created() {
+    // console.log(this.TokenUser)
+    // console.log(this.actUserInfo)
+    this.actUserInfo(this.TokenUser.id)
+    // this.initProfile()
+  },
+  methods: {
+    ...mapActions('User', ['actUserInfo']),
+    // ...mapActions('User', ['actUserUpdate']),
+    edit_profile() {
+      const userEdit = {
+        userid: this.userid,
+        password: this.s_password,
+        email: this.email,
+        phone: this.phone,
+        factoryname: this.factoryname
+      }
+      this.$store.dispatch('actUserUpdate', userEdit)
+      alert(`${userEdit.userid}님 회원 정보 수정이 완료되었습니다!`)
+      console.log(`${userEdit.userid}님 회원 정보 수정이 완료되었습니다!`)
+      // this.$router.go(this.$router.currentRoute)
+    }
+    // btn_delete() {
+    //   console.log('delete')
+    // }
+    // initProfile() {
+    //   this.userid = this.TokenUser.userid
+    //   this.email = this.TokenUser.email
+    //   this.factoryname = this.TokenUser.factoryname
+    // },
   }
-  // data() {
-  //   require('../../assets/images/smart-factory.png')
-  // }
-
 }
 </script>
 
@@ -118,7 +152,8 @@ h3 {
   margin-left: 25px;
 }
 
-.btn_edit {
+.btn_edit,
+.btn_delete {
   margin-top: 40px;
 }
 </style>

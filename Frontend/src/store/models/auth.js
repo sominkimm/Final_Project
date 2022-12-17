@@ -28,6 +28,7 @@ const stateInit = {
 }
 
 export default {
+  namespaced: true,
   state: {
     TokenUser: { ...stateInit.TokenUser }, // token에서 추출한 사용자 정보
     Loading: false,
@@ -40,6 +41,7 @@ export default {
   },
   mutations: {
     setTokenUser(state, data) {
+      console.log(data)
       state.TokenUser = data
     },
     setLoading(state, data) {
@@ -63,7 +65,7 @@ export default {
   actions: {
     authLogin(context, payload) {
       // 로그인 처리
-
+      console.log('login')
       // 상태값 초기화
       context.commit('clearError')
       context.commit('setLoading', true)
@@ -72,6 +74,7 @@ export default {
       api
         .post('/serverApi/auths/token', payload)
         .then(response => {
+          console.log(response)
           const token = response.headers.token
           const decodedToken = jwtDecode(token)
 
@@ -80,30 +83,7 @@ export default {
           context.commit('setTokenUser', decodedToken)
         })
         .catch(error => {
-          // 에러인 경우 처리
-          context.commit('setLoading', false)
-          context.commit('setError', error)
-        })
-    },
-    authSignup(context, payload) {
-      // 로그인 처리
-
-      // 상태값 초기화
-      context.commit('clearError')
-      context.commit('setLoading', true)
-
-      /* RestApi 호출 */
-      api
-        .post('/serverApi/users', payload)
-        .then(response => {
-          const token = response.headers.token
-          const decodedToken = jwtDecode(token)
-
-          // 정상인 경우 처리
-          context.commit('setLoading', false)
-          context.commit('setTokenUser', decodedToken)
-        })
-        .catch(error => {
+          console.log(error)
           // 에러인 경우 처리
           context.commit('setLoading', false)
           context.commit('setError', error)

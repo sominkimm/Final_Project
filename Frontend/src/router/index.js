@@ -103,6 +103,7 @@ router.beforeEach(async (to, from, next) => {
         // 1. tokenUser정보가 없어진 경우 다시 갱신한다.
         const tokenUser = store.getters['TokenUser']
         if (!tokenUser || !tokenUser.id > 0) {
+          console.log(store)
           store.dispatch('authTokenUser', token)
         }
 
