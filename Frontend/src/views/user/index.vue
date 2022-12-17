@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>사용자 관리</h1>
-    <div style="margin-bottom: 5px">
+    <h1>작업현황</h1>
+    <!-- <div style="margin-bottom: 5px">
       <b-row>
         <b-col style="text-align: left" cols="3">
           <b-input-group class="mt-3">
@@ -16,7 +16,7 @@
           <b-button variant="success" size="sm" @click="onClickAddNew"> 신규등록 </b-button>
         </b-col>
       </b-row>
-    </div>
+    </div> -->
     <div>
       <b-table small hover striped :items="userList" :fields="fields">
         <template #cell(Department)="row">
