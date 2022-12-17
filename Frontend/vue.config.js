@@ -8,7 +8,7 @@ module.exports = {
         target: VUE_APP_SERVER,
         changeOrigin: true,
         pathRewrite: {
-          '^/serverApi': ''
+          '^/serverApi': 'http://192.168.0.79:8080'
         }
       }
     }

@@ -12,10 +12,10 @@ import jwtDecode from 'jwt-decode'
     "exp": 1954826985
   }
   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcmlkIjoiaG9uZyIsIm5hbWUiOiLtmY3quLjrj5kiLCJyb2xlIjoibGVhZGVyIiwiaWF0IjoxNjM5NDY2OTg1LCJleHAiOjE5NTQ4MjY5ODV9.-hTy681tbe62pV9tjArzc5Ig33frnh9j_NjegGiHJNw
-*/
+
 const testToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcmlkIjoiaG9uZyIsIm5hbWUiOiLtmY3quLjrj5kiLCJyb2xlIjoibGVhZGVyIiwiaWF0IjoxNjM5NDY2OTg1LCJleHAiOjE5NTQ4MjY5ODV9.-hTy681tbe62pV9tjArzc5Ig33frnh9j_NjegGiHJNw'
-
+*/
 const stateInit = {
   TokenUser: {
     id: null,
@@ -94,7 +94,7 @@ export default {
 
       /* RestApi 호출 */
       api
-        .post('/serverApi/users', payload)
+        .post('/serverApi/users/signup', payload)
         .then(response => {
           const token = response.headers.token
           const decodedToken = jwtDecode(token)

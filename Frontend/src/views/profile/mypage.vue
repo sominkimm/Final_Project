@@ -2,8 +2,9 @@
   <b-container>
     <b-row>
       <b-col cols="5">
-        <form action>
-          <h3>Hello Seonhwa</h3>
+        <form action @submit.prevent="handleSubmit">
+          // <h3>Hello{{ $user.getter.user.id }}</h3>
+             <h3>Hello</h3>
           <b-row class="input-group">
             <b-col cols="2">
               <label for="">ID</label>
@@ -66,7 +67,10 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import jwtDecode from 'jwt-decode'
 export default {
+  name: 'Updated',
   data() {
     return {
       userid: '',
@@ -77,15 +81,62 @@ export default {
     }
   },
   computed: {
-    isLoggedin() {
-      let login = false
-      if (this.$store.getters.TokenUser && this.$store.getters.TokenUser.id > 0) {
-        login = true
-      }
-      return login
+    tokenUser() {
+      return this.$store.getters.TokenUser
     },
-    infoData() {
-      return this.$store.getters.User
+    loading() {
+      return this.$store.getters.TokenLoading
+    },
+    error() {
+      return this.$store.getters.TokenError
+    },
+    validation() {
+      return this.userid.length < 1
+    },
+    ...mapGetters('User', { user: 'User' }),
+    ...mapGetters('Auth', ['TokenUser'])
+  },
+  created() {
+    // 이미 토큰을 가지고 있는 경우 처리를 위한 로직
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      const today = new Date()
+      const expDate = new Date(decodedToken.exp * 1000)
+
+      if (expDate && expDate >= today) {
+        // 토큰이 유효한 경우
+        // this.$router.push('/home') // 메인 페이지 이동
+      } else {
+        // 토큰이 만료된 경우
+        window.localStorage.removeItem('token') // 토큰 삭제
+      }
+    }
+  },
+  methods: {
+    ...mapActions('User', ['actUserInfo']),
+    submitForm() {
+      console.log('Updated enterkey')
+      const userData = {
+        s_userid: this.userid,
+        password: this.password,
+        email: this.email,
+        phone: this.phone,
+        factoryname: this.factoryname
+      }
+      console.log(userData.s_userid)
+      this.$store.dispatch('actUserUpdate', userData)
+      //가입 후 폼 초기화
+      this.initForm()
+      this.$router.go()
+    },
+    initForm() {
+      this.userid = ''
+      this.password = ''
+      this.passwordVerify = ''
+      this.email = ''
+      this.phone = ''
+      this.factoryname = ''
     }
   }
   // data() {
