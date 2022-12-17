@@ -14,7 +14,7 @@
         height="200"
         frameborder="0"
       ></iframe>
-      
+
       <iframe
         src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886061658&to=1670907661658&panelId=4"
         width="450"

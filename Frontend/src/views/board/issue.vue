@@ -1,241 +1,117 @@
 <template>
   <div class="board-content">
-    <v-main>
-      <b-row class="topbar" style="margin-top: 100px">
-        <b-col cols="8" align="right">
-          <b-button v-b-modal.modal-prevent-closing class="b-write" size="sm">
-            <i class="bx bx-edit"></i>
-          </b-button>
-        </b-col>
-        <b-col cols="4"></b-col>
-      </b-row>
-      <b-row class="justify-content-center body-cont">
-        <b-col cols="8">
-          <b-modal
-            id="modal-prevent-closing"
-            ref="modal"
-            title="작업 보고"
-            @show="resetModal"
-            @hidden="resetModal"
-            @ok="handleOk"
-          >
-            <form ref="form" @submit.stop.prevent="handleSubmit">
-              <b-form-group
-                label="작성자"
-                label-for="name-input"
-                invalid-feedback="이름을 입력하세요"
-                :state="nameState"
-              >
-                <b-form-input id="name-input" v-model="name" :state="nameState" required />
-              </b-form-group>
-
-              <b-form-group
-                label="작성일"
-                label-for="datepicker-placeholder"
-                invalid-feedback="날짜를 선택하세요"
-                :state="datepickerState"
-              >
-                <b-form-datepicker
-                  id="datepicker-placeholder"
-                  v-model="datepicker"
-                  placeholder="날짜를 선택하세요"
-                  locale="ko"
-                ></b-form-datepicker>
-              </b-form-group>
-
-              <b-form-group
-                label="제목"
-                label-for="title-input"
-                invalid-feedback="제목을 입력하세요"
-                :state="titleState"
-                style="margin-top: 7px"
-              >
-                <b-form-input id="title-input" v-model="title" :state="titleState" required />
-              </b-form-group>
-              <b-form-group
-                label="내용"
-                label-for="content-input"
-                invalid-feedback="내용을 입력하세요"
-                :state="contentState"
-              >
-                <b-form-textarea
-                  id="content-input"
-                  v-model="content"
-                  :state="contentState"
-                  placeholder="Enter something..."
-                  rows="3"
-                  max-rows="6"
-                  required
-                />
-              </b-form-group>
-            </form>
-          </b-modal>
-          <div class="app-body-main-content">
-            <section class="service-section">
-              <div class="tiles">
-                <div v-b-modal.modal-prevent-closing-edit class="tile">
-                  <div class="tile-header">
-                    <i class="ph-lightning-light"></i>
-                    <h3>
-                      <span>A</span>
-                      <span>aaa</span>
-                    </h3>
-                  </div>
-                  <a href="#">
-                    <!-- <span>Go to service</span> -->
-                    <span class="icon-button">
-                      <i class="bx bx-chevron-right-circle"></i>
-                    </span>
-                  </a>
+    <Sidebar />
+    <b-row class="topbar" style="margin-top: 100px">
+      <b-col cols="8" align="right">
+        <!-- <b-button v-b-modal.modal-prevent-closing class="b-write" size="sm">
+          <i class="bx bx-edit"></i>
+        </b-button> -->
+        <b-button class="b-write" size="sm" @click="openNewModal">
+          <i class="bx bx-edit"></i>
+        </b-button>
+        <!-- <newModal :open-dialog="" :schedule-list="" @closeDialog=""></newModal> -->
+      </b-col>
+      <b-col cols="4"></b-col>
+    </b-row>
+    <b-row class="justify-content-center body-cont">
+      <b-col cols="8">
+        <div class="app-body-main-content">
+          <section class="service-section">
+            <div class="tiles" @click="openBoardModal">
+              <div class="tile">
+                <div class="tile-header">
+                  <i class="ph-lightning-light"></i>
+                  <h3>
+                    <span>A</span>
+                    <span>aaa</span>
+                  </h3>
                 </div>
-                <div v-b-modal.modal-prevent-closing-edit class="tile">
-                  <div class="tile-header">
-                    <i class="ph-fire-simple-light"></i>
-                    <h3>
-                      <span>B</span>
-                      <span>bbb</span>
-                    </h3>
+                <a href="#">
+                  <div class="icon-button">
+                    <i class="bx bx-chevron-right-circle"></i>
                   </div>
-                  <a href="#">
-                    <!-- <span>Go to service</span> -->
-                    <span class="icon-button">
-                      <i class="bx bx-chevron-right-circle"></i>
-                    </span>
-                  </a>
-                </div>
-                <div v-b-modal.modal-prevent-closing-edit class="tile">
-                  <div class="tile-header">
-                    <i class="ph-fire-simple-light"></i>
-                    <h3>
-                      <span>C</span>
-                      <span>ccc</span>
-                    </h3>
-                  </div>
-                  <a href="#">
-                    <!-- <span>Go to service</span> -->
-                    <span class="icon-button">
-                      <i class="bx bx-chevron-right-circle"></i>
-                    </span>
-                  </a>
-                </div>
-                <div v-b-modal.modal-prevent-closing-edit class="tile">
-                  <div class="tile-header">
-                    <i class="ph-fire-simple-light"></i>
-                    <h3>
-                      <span>D</span>
-                      <span>ddd</span>
-                    </h3>
-                  </div>
-                  <a href="#">
-                    <!-- <span>Go to service</span> -->
-                    <span class="icon-button">
-                      <i class="bx bx-chevron-right-circle"></i>
-                    </span>
-                  </a>
-                </div>
-                <div v-b-modal.modal-prevent-closing-edit class="tile">
-                  <div class="tile-header">
-                    <i class="ph-fire-simple-light"></i>
-                    <h3>
-                      <span>E</span>
-                      <span>eee</span>
-                    </h3>
-                  </div>
-                  <a href="#">
-                    <!-- <span>Go to service</span> -->
-                    <span class="icon-button">
-                      <i class="bx bx-chevron-right-circle"></i>
-                    </span>
-                  </a>
-                </div>
-                <b-modal
-                  id="modal-prevent-closing-edit"
-                  ref="modal"
-                  title="인수인계"
-                  @show="resetModal"
-                  @hidden="resetModal"
-                  @ok="handleOk"
-                >
-                  <form ref="form" @submit.stop.prevent="handleSubmit">
-                    <b-form-group label="No" label-for="index-no">
-                      <b-form-input id="name-input" v-model="name" :state="nameState" required />
-                    </b-form-group>
-                    <b-form-group
-                      label="작성자"
-                      label-for="name-input"
-                      invalid-feedback="이름을 입력하세요"
-                      :state="nameState"
-                    >
-                      <b-form-input id="name-input" v-model="name" :state="nameState" required />
-                    </b-form-group>
-
-                    <b-form-group
-                      label="작성일"
-                      label-for="datepicker-placeholder"
-                      invalid-feedback="날짜를 선택하세요"
-                      :state="datepickerState"
-                    >
-                      <b-form-datepicker
-                        id="datepicker-placeholder"
-                        v-model="datepicker"
-                        placeholder="날짜를 선택하세요"
-                        locale="ko"
-                      ></b-form-datepicker>
-                    </b-form-group>
-
-                    <b-form-group
-                      label="제목"
-                      label-for="title-input"
-                      invalid-feedback="제목을 입력하세요"
-                      :state="titleState"
-                      style="margin-top: 7px"
-                    >
-                      <b-form-input id="title-input" v-model="title" :state="titleState" required />
-                    </b-form-group>
-                    <b-form-group
-                      label="내용"
-                      label-for="content-input"
-                      invalid-feedback="내용을 입력하세요"
-                      :state="contentState"
-                    >
-                      <b-form-textarea
-                        id="content-input"
-                        v-model="content"
-                        :state="contentState"
-                        placeholder="Enter something..."
-                        rows="3"
-                        max-rows="6"
-                        required
-                      />
-                    </b-form-group>
-                  </form>
-                </b-modal>
+                </a>
               </div>
-            </section>
-          </div>
-        </b-col>
-        <b-col class="mt-4" cols="4">
-          <div class="app-body-sidebar">
-            <section class="payment-section">
-              <div class="payments">
-                <div class="payment">
-                  <b-calendar v-model="value" value-as-date locale="ko" class="calendar">
-                    <div class="d-flex" dir="ltr">
-                      <b-button v-if="value" size="sm" variant="outline-danger" @click="clearDate">
-                        Clear date
-                      </b-button>
-                      <b-button size="sm" variant="outline-primary" class="ml-auto" @click="setToday">
-                        Set Today
-                      </b-button>
-                    </div>
-                  </b-calendar>
+              <div class="tile">
+                <div class="tile-header">
+                  <i class="ph-fire-simple-light"></i>
+                  <h3>
+                    <span>B</span>
+                    <span>bbb</span>
+                  </h3>
                 </div>
+                <a href="#">
+                  <div class="icon-button">
+                    <i class="bx bx-chevron-right-circle"></i>
+                  </div>
+                </a>
               </div>
-            </section>
-          </div>
-        </b-col>
-      </b-row>
-      <!-- <b-pagination
+              <div class="tile">
+                <div class="tile-header">
+                  <i class="ph-fire-simple-light"></i>
+                  <h3>
+                    <span>C</span>
+                    <span>ccc</span>
+                  </h3>
+                </div>
+                <a href="#">
+                  <div class="icon-button">
+                    <i class="bx bx-chevron-right-circle"></i>
+                  </div>
+                </a>
+              </div>
+              <div class="tile">
+                <div class="tile-header">
+                  <i class="ph-fire-simple-light"></i>
+                  <h3>
+                    <span>D</span>
+                    <span>ddd</span>
+                  </h3>
+                </div>
+                <a href="#">
+                  <div class="icon-button">
+                    <i class="bx bx-chevron-right-circle"></i>
+                  </div>
+                </a>
+              </div>
+              <div class="tile">
+                <div class="tile-header">
+                  <i class="ph-fire-simple-light"></i>
+                  <h3>
+                    <span>E</span>
+                    <span>eee</span>
+                  </h3>
+                </div>
+                <a href="#">
+                  <div class="icon-button">
+                    <i class="bx bx-chevron-right-circle"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </b-col>
+      <b-col class="mt-4" cols="4">
+        <div class="app-body-sidebar">
+          <section class="payment-section">
+            <div class="payments">
+              <div class="payment">
+                <b-calendar v-model="value" value-as-date locale="ko" class="calendar">
+                  <div class="d-flex" dir="ltr">
+                    <b-button v-if="value" size="sm" variant="outline-danger" @click="clearDate"> Clear date </b-button>
+                    <b-button size="sm" variant="outline-primary" class="ml-auto" @click="setToday">
+                      Set Today
+                    </b-button>
+                  </div>
+                </b-calendar>
+              </div>
+            </div>
+          </section>
+        </div>
+      </b-col>
+    </b-row>
+    <!-- <b-pagination
       v-model="currentPage"
       pills
       :per-page="perPage"
@@ -243,83 +119,96 @@
       aria-controls="issue-table"
       align="center"
     /> -->
-    </v-main>
+    <newModal v-model="detailsVisible" @hide="closeStatus"></newModal>
+    <boardModal v-model="boardModalVisible" @hide="closeBModalStatus"></boardModal>
   </div>
 </template>
 
 <script>
+import Sidebar from '@/components/layout/Sidebar.vue'
+import newModal from '@/components/modal/newModal.vue'
+import boardModal from '@/components/modal/boardModal.vue'
+
 export default {
+  components: {
+    Sidebar,
+    newModal,
+    boardModal
+  },
   data() {
     return {
-      perPage: 8,
-      currentPage: 1,
-      items: [
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' },
-        { No: 40, 제목: 'Dickerson', 작성자: 'Macdonald', 등록일시: '' }
-      ],
-      name: '',
-      nameState: null,
-      datepicker: '',
-      datepickerState: null,
-      title: '',
-      titleState: null,
-      content: '',
-      contentState: null,
-      value: null
+      detailsVisible: false,
+      boardModalVisible: false,
+      value: null,
+      form: ''
     }
   },
   computed: {
     rows() {
       return this.items.length
+    },
+    BoardList() {
+      return this.$store.getters.BoardList
+    },
+    insertedResult() {
+      return this.$store.getters.BoardInsertedResult
+    }
+  },
+  watch: {
+    insertedResult(value) {
+      // 등록 후 처리
+
+      if (value !== null) {
+        if (value > 0) {
+          // 등록이 성공한 경우
+
+          // 1. 메세지 출력
+          this.$bvToast.toast('등록 되었습니다.', {
+            title: 'SUCCESS',
+            variant: 'success',
+            solid: true
+          })
+
+          // 2. 리스트 재 검색
+          // this.searchUserList()
+        } else {
+          // 등록이 실패한 경우
+          this.$bvToast.toast('등록이 실패하였습니다.', {
+            title: 'ERROR',
+            variant: 'danger',
+            solid: true
+          })
+        }
+      }
+    },
+    // 모달이 열린 이후에 감지됨
+    infoData(value) {
+      this.user = { ...value }
+
+      this.setDefaultValues() // 기본값 세팅
     }
   },
   methods: {
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity()
-      this.titleState = valid
-      this.contentState = valid
-      this.nameState = valid
-      this.datepickerState = valid
-      return valid
+    openNewModal() {
+      // console.log('눌리냐 ?', this.detailsVisible)
+      this.detailsVisible = true
+      this.$store.dispatch('actBoardInputMode', 'insert')
+
+      // 2. 상세정보 초기화
+      this.$store.dispatch('actBoardInit')
+
+      // 3. 모달 출력
+      this.$bvModal.show('modal-user-inform')
+      // console.log('바뀜 ?', this.detailsVisible)
     },
-    resetModal() {
-      this.name = ''
-      this.nameState = null
-      this.datepicker = ''
-      this.datepickerState = null
-      this.title = ''
-      this.titleState = null
-      this.content = ''
-      this.contentState = null
+    openBoardModal() {
+      this.boardModalVisible = true
     },
-    handleOk(bvModalEvent) {
-      // Prevent modal from closing
-      bvModalEvent.preventDefault()
-      // Trigger submit handler
-      this.handleSubmit()
+    closeStatus() {
+      this.detailsVisible = false
     },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return
-      }
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide('modal-prevent-closing')
-      })
+    closeBModalStatus() {
+      this.boardModalVisible = false
     },
     setToday() {
       const now = new Date()
@@ -335,6 +224,7 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 .b-row {
   display: flex;
   flex-direction: row;
@@ -397,7 +287,7 @@ export default {
     font-weight: 600;
 
     .icon-button {
-      font-size: 20px;
+      font-size: 40px;
       color: #000;
       border-color: inherit;
       &:hover,
