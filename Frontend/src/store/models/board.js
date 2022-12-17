@@ -4,7 +4,7 @@ import api from '../apiUtil'
 // 보드 DB랑 일치 시키자
 const stateInit = {
   Board: {
-    boardid: '',
+    // tid: '',
     tName: '',
     tTitle: '',
     tContents: '',
@@ -69,18 +69,9 @@ export default {
     actBoardInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const insertedResult = 1
-        context.commit('setInsertedResult', insertedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-      */
-
       /* RestAPI 호출 */
       api
-        .post(`/takeovers/${payload.id}`, payload)
+        .post(`/serverApi/takeovers/reg`, payload)
         .then(response => {
           const insertedResult = response && response.data && response.data.id
           context.commit('setInsertedResult', insertedResult)
@@ -121,15 +112,6 @@ export default {
     actBoardUpdate(context, payload) {
       // 상태값 초기화
       context.commit('setUpdatedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const updatedResult = 1
-        context.commit('setUpdatedResult', updatedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-      */
-
       /* RestAPI 호출 */
       api
         .put(`/serverApi/users/${payload.id}`, payload)
