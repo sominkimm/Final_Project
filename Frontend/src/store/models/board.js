@@ -31,10 +31,10 @@ export default {
   },
   mutations: {
     setBoardList(state, data) {
-      state.UserList = data
+      state.BoardList = data
     },
     setBoard(state, data) {
-      state.User = data
+      state.Board = data
     },
     setInsertedResult(state, data) {
       state.InsertedResult = data
@@ -56,13 +56,13 @@ export default {
       api
         .get('/serverApi/users', { params: payload })
         .then(response => {
-          const userList = response && response.data && response.data.rows
-          context.commit('setUserList', userList)
+          const BoardList = response && response.data && response.data.rows
+          context.commit('setBoardList', BoardList)
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('UserList.error', error)
-          context.commit('setUserList', [])
+          console.error('BoardList.error', error)
+          context.commit('setBoardList', [])
         })
     },
     // 등록
@@ -87,13 +87,13 @@ export default {
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('UserInsert.error', error)
+          console.error('BoardInsert.error', error)
           context.commit('setInsertedResult', -1)
         })
     },
     // 초기화
     actBoardInit(context, payload) {
-      context.commit('setUser', { ...stateInit.User })
+      context.commit('setBoard', { ...stateInit.Board })
     },
     // 입력모드
     actBoardInputMode(context, payload) {
@@ -102,19 +102,19 @@ export default {
     // 상세정보 조회
     actBoardInfo(context, payload) {
       // 상태값 초기화
-      context.commit('setUser', { ...stateInit.User })
+      context.commit('setBoard', { ...stateInit.Board })
 
       /* RestAPI 호출 */
       api
         .get(`/serverApi/users/${payload}`)
         .then(response => {
           const user = response && response.data
-          context.commit('setUser', user)
+          context.commit('setBoard', user)
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('UserInfo.error', error)
-          context.commit('setUser', -1)
+          console.error('BoardInfo.error', error)
+          context.commit('setBoard', -1)
         })
     },
     // 수정
@@ -139,7 +139,7 @@ export default {
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('UserUpdate.error', error)
+          console.error('BoardUpdate.error', error)
           context.commit('setUpdatedResult', -1)
         })
     },
@@ -165,7 +165,7 @@ export default {
         })
         .catch(error => {
           // 에러인 경우 처리
-          console.error('UserDelete.error', error)
+          console.error('BoardDelete.error', error)
           context.commit('setDeletedResult', -1)
         })
     }

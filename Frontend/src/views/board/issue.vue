@@ -146,13 +146,13 @@ export default {
   computed: {
     rows() {
       return this.items.length
+    },
+    BoardList() {
+      return this.$store.getters.BoardList
+    },
+    insertedResult() {
+      return this.$store.getters.BoardInsertedResult
     }
-    // inputMode() {
-    //   return this.$store.getters.UserInputMode
-    // },
-    // insertedResult() {
-    //   return this.$store.getters.UserInsertedResult
-    // }
   },
   watch: {
     insertedResult(value) {
@@ -170,7 +170,7 @@ export default {
           })
 
           // 2. 리스트 재 검색
-          this.searchUserList()
+          // this.searchUserList()
         } else {
           // 등록이 실패한 경우
           this.$bvToast.toast('등록이 실패하였습니다.', {
@@ -189,27 +189,16 @@ export default {
     }
   },
   methods: {
-    // checkFormValidity() {
-    //   const valid = this.$refs.form.checkValidity()
-    //   this.titleState = valid
-    //   this.contentState = valid
-    //   this.nameState = valid
-    //   this.datepickerState = valid
-    //   return valid
-    // },
-    // resetModal() {
-    //   this.tName = ''
-    //   this.nameState = null
-    //   this.takeoverDate = ''
-    //   this.datepickerState = null
-    //   this.tTitle = ''
-    //   this.titleState = null
-    //   this.tContents = ''
-    //   this.contentState = null
-    // },
     openNewModal() {
       // console.log('눌리냐 ?', this.detailsVisible)
       this.detailsVisible = true
+      this.$store.dispatch('actBoardInputMode', 'insert')
+
+      // 2. 상세정보 초기화
+      this.$store.dispatch('actBoardInit')
+
+      // 3. 모달 출력
+      this.$bvModal.show('modal-user-inform')
       // console.log('바뀜 ?', this.detailsVisible)
     },
     openBoardModal() {
