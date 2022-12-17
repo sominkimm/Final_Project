@@ -3,13 +3,13 @@
     <b-row>
       <b-col cols="5">
         <form action @submit.prevent="handleSubmit">
-          <h3>Hello Seonhwa</h3>
+          <h3>Hello{{ $user.getter.user.id }}</h3>
           <b-row class="input-group">
             <b-col cols="1">
               <label for="">ID</label>
             </b-col>
             <b-col cols="3">
-              <input v-model="s_userid" type="text" required />
+              <input v-model="userid" type="text" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
