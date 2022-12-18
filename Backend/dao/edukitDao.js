@@ -1,15 +1,12 @@
 const { Op } = require('sequelize');
 // const { User, Department } = require('../models/index');
-const { User } = require('../models/index');
+const { Edukit } = require('../models/index');
 
 const dao = {
   // 등록
   insert(params) {
     return new Promise((resolve, reject) => {
-      User.create(params).then((inserted) => {
-        // password는 제외하고 리턴함
-        const insertedResult = { ...inserted };
-        delete insertedResult.dataValues.password;
+      Edukit.create(params).then((inserted) => {
         resolve(inserted);
       }).catch((err) => {
         reject(err);
@@ -37,7 +34,7 @@ const dao = {
     setQuery.order = [['id', 'DESC']];
 
     return new Promise((resolve, reject) => {
-      User.findAndCountAll({
+      Edukit.findAndCountAll({
         ...setQuery,
         attributes: { exclude: ['password'] }, // password 필드 제외
         // include: [
@@ -56,7 +53,7 @@ const dao = {
   // 상세정보 조회
   selectInfo(params) {
     return new Promise((resolve, reject) => {
-      User.findByPk(
+      Edukit.findByPk(
         params.id,
         {
           attributes: { exclude: ['password'] }, // password 필드 제외
@@ -71,10 +68,10 @@ const dao = {
   // 수정
   update(params) {
     return new Promise((resolve, reject) => {
-      User.update(
+      Edukit.update(
         params,
         {
-          where: { userid: params.s_userid },
+          where: { id: params.id },
         },
       ).then(([updated]) => {
         resolve({ updatedCount: updated });
@@ -86,8 +83,8 @@ const dao = {
   // 삭제
   delete(params) {
     return new Promise((resolve, reject) => {
-      User.destroy({
-        where: { id: params.s_userid },
+      Edukit.destroy({
+        where: { id: params.id },
       }).then((deleted) => {
         resolve({ deletedCount: deleted });
       }).catch((err) => {
@@ -98,7 +95,7 @@ const dao = {
   // 로그인을 위한 사용자 조회
   selectUser(params) {
     return new Promise((resolve, reject) => {
-      User.findOne({
+      Edukit.findOne({
         attributes: ['id', 'userid', 'password', 'factoryname', 'ceoname'],
         where: { userid: params.userid },
       }).then((selectedOne) => {
