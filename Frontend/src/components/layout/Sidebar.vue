@@ -32,7 +32,7 @@
           </li>
 
           <li class="nav-link">
-            <router-link to="/workdaily" active-class="active" class="nav-item">
+            <router-link to="/edukit" active-class="active" class="nav-item">
               <i class="bx bx-bell icon"></i>
               <span class="text nav-text">작업 현황</span>
             </router-link>

@@ -44,8 +44,8 @@ const routes = [
         component: () => import('../views/profile/mypage')
       },
       {
-        path: '/workdaily',
-        component: () => import('../views/user/workdaily')
+        path: '/edukit',
+        component: () => import('../views/user/edukit')
       }
     ]
   },
