@@ -3,8 +3,7 @@
     <b-row>
       <b-col cols="5">
         <form action @submit.prevent="handleSubmit">
-          <!-- <h3>Hello{{ $user.getter.user.id }}</h3> -->
-          <h3>Hello</h3>
+          <h3>Hello {{ this.$store.getters.TokenUser.userid }}</h3>
           <b-row class="input-group">
             <b-col cols="2">
               <label for="">ID</label>
