@@ -108,7 +108,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const params = {
-      id: req.params.id,
+      userid: req.body.s_userid,
     };
     logger.info(`(user.delete.params) ${JSON.stringify(params)}`);
 
