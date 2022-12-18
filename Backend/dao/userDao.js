@@ -87,7 +87,7 @@ const dao = {
   delete(params) {
     return new Promise((resolve, reject) => {
       User.destroy({
-        where: { userid: params.s_userid },
+        where: { id: params.s_userid },
       }).then((deleted) => {
         resolve({ deletedCount: deleted });
       }).catch((err) => {

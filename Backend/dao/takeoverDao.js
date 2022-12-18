@@ -26,7 +26,7 @@ const dao = {
     if (params.userid) {
       setQuery.where = {
         ...setQuery.where,
-        userid: params.userid, // '='검색
+        id: params.userid, // '='검색
       };
     }
 
@@ -93,18 +93,18 @@ const dao = {
     });
   },
   // 로그인을 위한 사용자 조회
-  selectUser(params) {
-    return new Promise((resolve, reject) => {
-      Takeover.findOne({
-        attributes: ['id', 'userid', 'password', 'factoryname', 'ceoname'],
-        where: { userid: params.userid },
-      }).then((selectedOne) => {
-        resolve(selectedOne);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  },
+  // selectUser(params) {
+  //   return new Promise((resolve, reject) => {
+  //     Takeover.findOne({
+  //       attributes: ['id', 'userid', 'password', 'factoryname', 'ceoname'],
+  //       where: { userid: params.userid },
+  //     }).then((selectedOne) => {
+  //       resolve(selectedOne);
+  //     }).catch((err) => {
+  //       reject(err);
+  //     });
+  //   });
+  // },
 };
 
 module.exports = dao;
