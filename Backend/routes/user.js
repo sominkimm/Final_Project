@@ -36,43 +36,43 @@ router.post('/', async (req, res) => {
   }
 });
 
-// // 리스트 조회
-// router.get('/', async (req, res) => {
-//   try {
-//     const params = {
-//       factoryname: req.query.factoryname,
-//       ceoname: req.query.ceoname,
-//       userid: req.query.userid,
-//     };
-//     logger.info(`(user.list.params) ${JSON.stringify(params)}`);
+// 리스트 조회
+router.get('/', async (req, res) => {
+  try {
+    const params = {
+      factoryname: req.query.factoryname,
+      ceoname: req.query.ceoname,
+      userid: req.query.userid,
+    };
+    logger.info(`(user.list.params) ${JSON.stringify(params)}`);
 
-//     const result = await userService.list(params);
-//     logger.info(`(user.list.result) ${JSON.stringify(result)}`);
+    const result = await userService.list(params);
+    logger.info(`(user.list.result) ${JSON.stringify(result)}`);
 
-//     // 최종 응답
-//     res.status(200).json(result);
-//   } catch (err) {
-//     res.status(500).json({ err: err.toString() });
-//   }
-// });
+    // 최종 응답
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ err: err.toString() });
+  }
+});
 
-// // 상세정보 조회
-// router.get('/:id', async (req, res) => {
-//   try {
-//     const params = {
-//       id: req.params.id,
-//     };
-//     logger.info(`(user.info.params) ${JSON.stringify(params)}`);
+// 상세정보 조회
+router.get('/:id', async (req, res) => {
+  try {
+    const params = {
+      id: req.params.id,
+    };
+    logger.info(`(user.info.params) ${JSON.stringify(params)}`);
 
-//     const result = await userService.info(params);
-//     logger.info(`(user.info.result) ${JSON.stringify(result)}`);
+    const result = await userService.info(params);
+    logger.info(`(user.info.result) ${JSON.stringify(result)}`);
 
-//     // 최종 응답
-//     res.status(200).json(result);
-//   } catch (err) {
-//     res.status(500).json({ err: err.toString() });
-//   }
-// });
+    // 최종 응답
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json({ err: err.toString() });
+  }
+});
 
 // 수정
 router.put('/:id', async (req, res) => {
