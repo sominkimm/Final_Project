@@ -128,7 +128,7 @@
 import Sidebar from '@/components/layout/Sidebar.vue'
 import newModal from '@/components/modal/newModal.vue'
 import boardModal from '@/components/modal/boardModal.vue'
-
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     Sidebar,
@@ -141,16 +141,21 @@ export default {
       boardModalVisible: false,
       value: null,
       form: ''
+      // tName: '',
+      // takeoverDate: ''
     }
   },
   computed: {
+    ...mapGetters('Board', { board: 'Board' }),
     rows() {
       return this.items.length
     },
     BoardList() {
       return this.$store.getters.BoardList
+      // return this.BoardList()
     },
     insertedResult() {
+      // return this.BoardInsertedResult
       return this.$store.getters.BoardInsertedResult
     }
   },
@@ -189,17 +194,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions('Board', ['actBoardInputMode', 'actBoardInit']),
     openNewModal() {
-      // console.log('눌리냐 ?', this.detailsVisible)
       this.detailsVisible = true
       this.$store.dispatch('actBoardInputMode', 'insert')
-
+      // this.actBoardInputMode('insert')
       // 2. 상세정보 초기화
       this.$store.dispatch('actBoardInit')
-
+      // this.actBoardInit()
       // 3. 모달 출력
       this.$bvModal.show('modal-user-inform')
-      // console.log('바뀜 ?', this.detailsVisible)
     },
     openBoardModal() {
       this.boardModalVisible = true

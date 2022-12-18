@@ -2,7 +2,7 @@
   <b-modal
     id="modal-prevent-closing"
     ref="modal"
-    :title="getTitle"
+    title="인수인계 등록"
     :visible="visible"
     @show="resetModal"
     @hidden="hide"
@@ -11,7 +11,7 @@
   >
     <form ref="form" @submit.stop.prevent="handleOk">
       <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
-        <b-form-input v-if="inputMode === 'insert'" id="name-input" v-model="tName" :state="nameState" required />
+        <b-form-input id="name-input" v-model="tName" :state="nameState" required />
       </b-form-group>
 
       <b-form-group
@@ -21,7 +21,6 @@
         :state="datepickerState"
       >
         <b-form-datepicker
-          v-if="inputMode === 'insert'"
           id="datepicker-placeholder"
           v-model="takeoverDate"
           placeholder="날짜를 선택하세요"
@@ -36,11 +35,10 @@
         :state="titleState"
         style="margin-top: 7px"
       >
-        <b-form-input v-if="inputMode === 'insert'" id="title-input" v-model="tTitle" :state="titleState" required />
+        <b-form-input id="title-input" v-model="tTitle" :state="titleState" required />
       </b-form-group>
       <b-form-group label="내용" label-for="content-input" invalid-feedback="내용을 입력하세요" :state="contentState">
         <b-form-textarea
-          v-if="inputMode === 'insert'"
           id="content-input"
           v-model="tContents"
           :state="contentState"
@@ -84,24 +82,22 @@ export default {
     ...mapGetters('Board', { board: 'Board' }),
     dialog(props) {
       return props.openDialog
-    },
-    infoData() {
-      console.log(this.board)
-      return this.board
-    },
-    inputMode() {
-      return this.$store.getters.BoardInputMode
-    },
-    getTitle() {
-      let title = ''
-      if (this.inputMode === 'insert') {
-        title = '인수인계 작성'
-      } else if (this.inputMode === 'update') {
-        title = '인수인계 수정'
-      }
-
-      return title
     }
+    // infoData() {
+    //   console.log(this.board)
+    //   return this.board
+    // }
+    // inputMode() {
+    //   return this.$store.getters.BoardInputMode
+    // },
+    // getTitle() {
+    //   let title = ''
+    //   if (this.inputMode === 'insert') {
+    //     title = '인수인계 작성'
+    //   }
+
+    //   return title
+    // }
   },
   // watch: {
   //   infoData(value) {
@@ -151,22 +147,24 @@ export default {
     },
     handleSubmit() {
       // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return
-      }
+      // if (!this.checkFormValidity()) {
+      //   return
+      // }
       let boardData = {
         // id: this.User.id,
         tName: this.tName,
+        takeoverDate: this.takeoverDate,
         tTitle: this.tTitle,
-        tContents: this.tContents,
-        takeoverDate: this.takeoverDate
+        tContents: this.tContents
       }
-      this.$store.dispatch('actBoardInsert', boardData)
+      // this.$store.dispatch('actBoardInsert', boardData)
+      // this.$store.dispatch('actBoardInsert', boardData)
+      this.actBoardInsert(boardData)
       console.log(boardData)
       this.initForm()
       console.log(boardData)
-      this.$router.go()
       alert(`등록되었습니다!`)
+      this.$router.go()
       // this.$nextTick(() => {
       // this.$emit('closeDialog')
       // this.$bvModal.hide('modal-prevent-closing')

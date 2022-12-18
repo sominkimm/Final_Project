@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     ...mapActions('User', ['actUserInfo']),
-    submitForm() {
+    edit_profile() {
       console.log('Updated enterkey')
       const userData = {
         s_userid: this.userid,
