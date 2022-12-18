@@ -4,7 +4,7 @@ import api from '../apiUtil'
 // 보드 DB랑 일치 시키자
 const stateInit = {
   Board: {
-    // tid: '',
+    id: '',
     tName: '',
     tTitle: '',
     tContents: '',
@@ -13,6 +13,7 @@ const stateInit = {
 }
 
 export default {
+  namespaced: true,
   state: {
     BoardList: [],
     Board: { ...stateInit.Board },
@@ -97,10 +98,11 @@ export default {
 
       /* RestAPI 호출 */
       api
-        .get(`/serverApi/users/${payload}`)
+        .get(`/serverApi/takeovers/${payload.id}`)
         .then(response => {
-          const user = response && response.data
-          context.commit('setBoard', user)
+          const Board = response && response.data
+          // && response.data.id
+          context.commit('setBoard', Board)
         })
         .catch(error => {
           // 에러인 경우 처리
@@ -114,7 +116,7 @@ export default {
       context.commit('setUpdatedResult', null)
       /* RestAPI 호출 */
       api
-        .put(`/serverApi/users/${payload.id}`, payload)
+        .put(`/serverApi/takeovers/${payload.id}`, payload)
         .then(response => {
           const updatedResult = response && response.data && response.data.updatedCount
           context.commit('setUpdatedResult', updatedResult)
@@ -129,18 +131,9 @@ export default {
     actBoardDelete(context, payload) {
       // 상태값 초기화
       context.commit('setDeletedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const deletedResult = 1
-        context.commit('setDeletedResult', deletedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-      */
-
       /* RestAPI 호출 */
       api
-        .delete(`/serverApi/users/${payload}`)
+        .delete(`/serverApi/takeovers/${payload.id}`)
         .then(response => {
           const deletedResult = response && response.data && response.data.deletedCount
           context.commit('setDeletedResult', deletedResult)
