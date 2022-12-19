@@ -9,7 +9,7 @@
               <label for="">ID</label>
             </b-col>
             <b-col cols="5">
-              <input id="userid" v-model="userid" type="text" required />
+              <input id="userid" type="text" :value="message" readonly required /><!-- v-model="userid"-->
             </b-col>
           </b-row>
           <b-row class="input-group">
@@ -80,6 +80,9 @@ export default {
     }
   },
   computed: {
+    message() {
+      return this.$store.getters.TokenUser.userid
+    },
     tokenUser() {
       return this.$store.getters.TokenUser
     },
@@ -117,7 +120,7 @@ export default {
     edit_profile() {
       console.log('Updated enterkey')
       const userData = {
-        s_userid: this.userid,
+        s_userid: this.$store.getters.TokenUser.userid,
         password: this.password,
         email: this.email,
         phone: this.phone,
