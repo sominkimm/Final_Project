@@ -10,7 +10,7 @@
                 <label for="">ID </label>
               </b-col>
               <b-col cols="5">
-                <input id="userid" v-model="userid" type="text" required />
+                <input id="userid" v-model="userid" type="text" readonly required />
               </b-col>
             </b-row>
             <b-row class="input-group">
@@ -143,8 +143,18 @@ export default {
         window.localStorage.removeItem('token') // 토큰 삭제
       }
     }
-    console.log('---this.tokenUser : ', this.tokenUser)
-    this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    // this.UserInfo()
+    // this.tokenUser()
+    // console.log('---this.tokenUser : ', this.tokenUser.id)
+    this.userid = this.tokenUser.userid
+    console.log(this.UserInfo)
+    this.email = this.UserInfo.email
+    this.phone = this.UserInfo.phone
+    this.factoryname = this.UserInfo.factoryname
+
+    // this.$store.dispatch('actUserInfo', this.tokenUser.userid)
+    // console.log('---this.tokenUser : ', this.tokenUser.userid)
+    // console.log('hello world', this.$store.dispatch('actUserInfo', this.tokenUser.userid))
     // this.actUserInfo(this.tokenUser.id)
   },
   methods: {
@@ -182,7 +192,7 @@ export default {
     },
     deleteAccount() {
       const deleteData = {
-        userid: this.userid,
+        s_userid: this.userid,
         password: this.password,
         email: this.email,
         phone: this.phone,
