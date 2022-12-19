@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const secretKey = '2B4D6251655468566D597133743677397A24432646294A404E635266556A586E';
 const options = {
-  expiresIn: '2h', // 만료시간
+  expiresIn: '1m', // 만료시간
 };
 
 const tokenUtil = {
@@ -12,7 +12,7 @@ const tokenUtil = {
       id: user.id,
       userid: user.userid,
       factoryname: user.factoryname,
-      // role: user.role,
+      role: user.role,
     };
 
     const token = jwt.sign(payload, secretKey, options);

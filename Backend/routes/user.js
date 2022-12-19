@@ -60,7 +60,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const params = {
-      id: req.params.id,
+      s_userid: req.params.s_userid,
     };
     logger.info(`(user.info.params) ${JSON.stringify(params)}`);
 
@@ -84,7 +84,6 @@ router.put('/:id', async (req, res) => {
       phone: req.body.phone,
       factoryname: req.body.factoryname,
     };
-    console.log(params.s_userid);
     logger.info(`(user.update.params) ${JSON.stringify(params)}`);
 
     // 입력값 null 체크
