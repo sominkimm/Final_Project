@@ -1,6 +1,6 @@
 <template>
   <div class="edukit">
-    <div class="overflow-auto table-hover" style="width: 96%">
+    <div class="overflow-auto table" style="width: 96%">
       <h3>작업 현황</h3>
       <b-table
         id="my-table"

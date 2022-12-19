@@ -18,76 +18,19 @@
         <div class="app-body-main-content">
           <section class="service-section">
             <div class="tiles">
-              <div v-for="(item, index) in BoardList" :key="index" class="tile">
+              <div v-for="(item, index) in BoardList" :key="index" class="tile" @click="openBoardModal(item)">
                 <div class="tile-header">
-                  <i class="ph-lightning-light"></i>
                   <h3>
                     <div>{{ item.tTitle }}</div>
                     <div>{{ item.tName }}</div>
                   </h3>
                 </div>
-                <a href="#" @click="openBoardModal(item)">
+                <!-- <a href="#" @click="openBoardModal(item)">
                   <div class="icon-button">
                     <i class="bx bx-chevron-right-circle"></i>
                   </div>
-                </a>
+                </a> -->
               </div>
-              <!-- <div class="tile">
-                <div class="tile-header">
-                  <i class="ph-fire-simple-light"></i>
-                  <h3>
-                    <span>B</span>
-                    <span>bbb</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <div class="icon-button">
-                    <i class="bx bx-chevron-right-circle"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="tile">
-                <div class="tile-header">
-                  <i class="ph-fire-simple-light"></i>
-                  <h3>
-                    <span>C</span>
-                    <span>ccc</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <div class="icon-button">
-                    <i class="bx bx-chevron-right-circle"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="tile">
-                <div class="tile-header">
-                  <i class="ph-fire-simple-light"></i>
-                  <h3>
-                    <span>D</span>
-                    <span>ddd</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <div class="icon-button">
-                    <i class="bx bx-chevron-right-circle"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="tile">
-                <div class="tile-header">
-                  <i class="ph-fire-simple-light"></i>
-                  <h3>
-                    <span>E</span>
-                    <span>eee</span>
-                  </h3>
-                </div>
-                <a href="#">
-                  <div class="icon-button">
-                    <i class="bx bx-chevron-right-circle"></i>
-                  </div>
-                </a>
-              </div> -->
             </div>
           </section>
         </div>
@@ -210,7 +153,7 @@ export default {
       this.$bvModal.show('modal-user-inform')
     },
     openBoardModal(val) {
-      console.log('val : ', val)
+      // console.log('val : ', val)
       this.actBoardList(val)
       this.boardModalVisible = true
     },
@@ -260,7 +203,7 @@ export default {
 .tile {
   padding: 1rem;
   border-radius: 8px;
-  background-color: #f4f9fd;
+  background-color: #fdfdfe;
   color: #000000;
   min-height: 150px;
   display: flex;
@@ -268,6 +211,7 @@ export default {
   // justify-content: space-between;
   position: relative;
   transition: 0.25s ease;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);
@@ -386,7 +330,9 @@ export default {
   // justify-content: center;
   min-height: 100vh;
 }
-
+// .tiles .icon-button {
+//   margin-left: 350px;
+// }
 .calendar {
   // position: -webkit-sticky;
   position: fixed;
