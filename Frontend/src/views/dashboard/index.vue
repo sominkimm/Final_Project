@@ -8,40 +8,52 @@
       <line-chart ref="chart" :chart-data="chartData" :options="options" style="width: 500px"></line-chart>
     </div> -->
       <!-- <b-container> -->
-      <iframe
-        src="http://localhost:3000/d-solo/PSRBSp54k/plc?orgId=1&from=1671074622899&to=1671096222899&panelId=2"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886061658&to=1670907661658&panelId=4"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886076617&to=1670907676617&panelId=7"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886088380&to=1670907688380&panelId=2"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886102224&to=1670907702224&panelId=9"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
+      <b-row>
+        <b-col>
+          <iframe
+            src="http://localhost:3000/d-solo/PSRBSp54k/plc?orgId=1&from=1671074622899&to=1671096222899&panelId=2"
+            width="450"
+            height="200"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886061658&to=1670907661658&panelId=4"
+            width="450"
+            height="200"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+        <b-col>
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886076617&to=1670907676617&panelId=7"
+            width="450"
+            height="200"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886088380&to=1670907688380&panelId=2"
+            width="450"
+            height="200"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+        <b-col>
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886102224&to=1670907702224&panelId=9"
+            width="450"
+            height="200"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
       <!-- </b-container> -->
     </b-container>
   </div>

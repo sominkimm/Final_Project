@@ -101,7 +101,8 @@ export default {
     },
     linkGen(pageNum) {
       return pageNum === 1 ? '?' : `?page=${pageNum}`
-    }
+    },
+    estopRuntime() {}
   }
 }
 </script>
