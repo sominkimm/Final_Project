@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="overflow-auto" style="margin-top: 30px">
+  <div class="edukit">
+    <div class="overflow-auto" style="width: 96%">
       <h3>작업 현황</h3>
       <b-table
         id="my-table"
@@ -17,12 +17,12 @@
         <template #cell(pdEndTime)="row">
           {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <template #cell(eStopRuntime)="row">
+        <!-- <template #cell(estopRuntime)="row">
           {{ row.item.estopRuntime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <template #cell(eStopCleartime)="row">
+        <template #cell(estopCleartime)="row">
           {{ row.item.estopCleartime.substring(0, 19).replace('T', ' ') }}
-        </template>
+        </template> -->
       </b-table>
       <!-- :per-page="perPage"
         :current-page="currentPage" -->
@@ -51,7 +51,7 @@ export default {
       // currentPage: 1,
       // pageNum: 0,
       currentPage: 1,
-      perPage: 10,
+      perPage: 8,
       fields: [
         { key: 'id', label: 'No' },
         { key: 'pdStartTime', label: '시작 시간' },
@@ -110,6 +110,18 @@ export default {
 <style lang="scss" scoped>
 * {
   color: rgba(255, 255, 255, 0.868);
+}
+
+.edukit {
+  height: 100vh;
+  background-color: #000;
+  padding-top: 60px;
+  padding-left: 30px;
+}
+
+h3 {
+  margin-left: 30px;
+  margin-bottom: 50px;
 }
 
 #my-table {

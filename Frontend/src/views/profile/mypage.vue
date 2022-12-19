@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="mypage">
     <b-row>
       <b-col cols="5">
         <div class="mypageForm">
@@ -206,6 +206,12 @@ $blue: #3498db;
   box-sizing: border-box;
   justify-content: center;
 }
+
+.mypage {
+  height: 100vh;
+  background-color: #000;
+}
+
 .mypageForm {
   height: 500px;
   width: 600px;

@@ -13,7 +13,8 @@
   width: 100%;
   background: rgba(0, 0, 0, 0.874);
   color: #fff; */
-  padding: 5px 20px 20px 20px;
+  /* padding: 5px 20px 20px 20px; */
+  background-color: #000;
 }
 
 /* .separate-body {
