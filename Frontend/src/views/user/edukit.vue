@@ -2,33 +2,34 @@
   <div>
     <div class="overflow-auto">
       <h3>작업 현황</h3>
-      <b-table id="my-table" striped hover :items="edukitList" :fields="fields">
-        <!-- <template #cell(id)="data">
-          {{ data.id + 1 }}
-        </template>
+      <b-table
+        id="my-table"
+        striped
+        hover
+        :items="edukitList"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :fields="fields"
+      >
         <template #cell(pdStartTime)="row">
-          {{ row.item.pdStartTime.substring(0, 10) }}
+          {{ row.item.pdStartTime.substring(0, 19).replace('T', ' ') }}
         </template>
         <template #cell(pdEndTime)="row">
-          {{ row.item.pdEndTime.substring(0, 10) }}
+          {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <template #cell(eStopRuntime)="row">
-          {{ row.item.eStopRuntime.substring(0, 10) }}
+        <!-- <template #cell(eStopRuntime)="row">
+          {{ row.item.eStopRuntime.substring(0, 19) }}
         </template>
         <template #cell(eStopCleartime)="row">
-          {{ row.item.eStopCleartime.substring(0, 10) }}
-        </template>
-        <template #cell()="data">
-          <i>{{ data.value }}</i>
+          {{ row.item.eStopCleartime.substring(0, 19) }}
         </template> -->
       </b-table>
       <!-- :per-page="perPage"
         :current-page="currentPage" -->
-      <!-- <template #cell(createdAt)="row">
-          {{ row.item.createdAt.substring(0, 10) }}
-        </template> -->
       <b-pagination-nav
+        v-model="currentPage"
         :link-gen="linkGen"
+        :number-of-pages="20"
         pills
         :total-rows="rows"
         :per-page="perPage"
@@ -36,13 +37,11 @@
         align="center"
         use-router
       ></b-pagination-nav>
-      <!-- :number-of-pages="10" -->
     </div>
   </div>
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -50,6 +49,8 @@ export default {
       // perPage: 8,
       // currentPage: 1,
       // pageNum: 0,
+      currentPage: 1,
+      perPage: 8,
       fields: [
         { key: 'id', label: 'No' },
         { key: 'pdStartTime', label: '시작 시간' },
@@ -66,14 +67,30 @@ export default {
   computed: {
     edukitList() {
       return this.$store.getters.EdukitList
+    },
+    rows() {
+      return this.$store.getters.EdukitList.length
     }
+  },
+  mounted() {
+    this.pagingMethod(this.page)
   },
   created() {
     this.searchEdukitList()
   },
   methods: {
+    handlePageChange(value) {
+      this.page = value
+    },
+    pagingMethod(page) {
+      this.listData
+    },
     searchEdukitList() {
       this.$store.dispatch('actEdukitList')
+    },
+    linkGen(pageNum) {
+      console.log('page')
+      return pageNum === 1 ? '?' : `?page=${pageNum}`
     }
   }
 }
