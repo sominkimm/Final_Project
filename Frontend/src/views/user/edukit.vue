@@ -59,8 +59,8 @@ export default {
         { key: 'thrGoodset', label: '양품 수량' },
         { key: 'gappyProduct', label: '불량품 수량' },
         { key: 'eStop', label: '비상 정지 여부' },
-        { key: 'eStopRuntime', label: '비상 정지 시작 시간' },
-        { key: 'eStopCleartime', label: '비상 정지 정지 시간' }
+        { key: 'estopRuntime', label: '비상 정지 시작 시간' },
+        { key: 'estopCleartime', label: '비상 정지 정지 시간' }
       ]
     }
   },
