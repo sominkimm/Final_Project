@@ -35,7 +35,7 @@
           <!-- 생산현황 -->
           <iframe
             src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1671435507033&to=1671457107033&panelId=11"
-            width="600"
+            width="615"
             height="210"
             frameborder="0"
           ></iframe>
@@ -46,16 +46,16 @@
           <!-- 양품 불량품 게이지 -->
           <iframe
             src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886102224&to=1670907702224&panelId=9"
-            width="580"
+            width="570"
             height="210"
             frameborder="0"
           ></iframe>
         </b-col>
-        <b-col class="col" style="margin-left: 20px">
+        <b-col class="col" style="margin-left: 15px">
           <!-- 현재 공정률 -->
           <iframe
             src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1671435443683&to=1671457043683&panelId=13"
-            width="600"
+            width="610"
             height="210"
             frameborder="0"
           ></iframe>
