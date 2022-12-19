@@ -135,8 +135,18 @@ export default {
         window.localStorage.removeItem('token') // 토큰 삭제
       }
     }
-    console.log('---this.tokenUser : ', this.tokenUser)
-    this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    // this.UserInfo()
+    // this.tokenUser()
+    // console.log('---this.tokenUser : ', this.tokenUser.id)
+    this.userid = this.tokenUser.userid
+    console.log(this.UserInfo)
+    this.email = this.UserInfo.email
+    this.phone = this.UserInfo.phone
+    this.factoryname = this.UserInfo.factoryname
+
+    // this.$store.dispatch('actUserInfo', this.tokenUser.userid)
+    // console.log('---this.tokenUser : ', this.tokenUser.userid)
+    // console.log('hello world', this.$store.dispatch('actUserInfo', this.tokenUser.userid))
     // this.actUserInfo(this.tokenUser.id)
   },
   methods: {
