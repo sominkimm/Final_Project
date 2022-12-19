@@ -56,7 +56,7 @@ export default {
     actBoardList(context, payload) {
       /* RestAPI 호출 */
       api
-        .get('/serverApi/users', { params: payload })
+        .get('/serverApi/takeovers', { params: payload })
         .then(response => {
           const BoardList = response && response.data && response.data.rows
           context.commit('setBoardList', BoardList)
@@ -95,7 +95,7 @@ export default {
     // 상세정보 조회
     actBoardInfo(context, payload) {
       // 상태값 초기화
-      console.log('actUserInfo start')
+      console.log('actBoardInfo start')
       context.commit('setBoard', { ...stateInit.Board })
 
       /* RestAPI 호출 */
