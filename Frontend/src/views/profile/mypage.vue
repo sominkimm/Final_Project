@@ -6,10 +6,10 @@
           <h3>Hello {{ this.$store.getters.TokenUser.userid }}</h3>
           <b-row class="input-group">
             <b-col cols="2">
-              <label for="">ID</label>
+              <label for="">ID </label>
             </b-col>
             <b-col cols="5">
-              <input id="userid" type="text" :value="message" readonly required /><!-- v-model="userid"-->
+              <input id="userid" v-model="userid" type="text" required />
             </b-col>
           </b-row>
           <b-row class="input-group">
@@ -54,7 +54,7 @@
           </b-row>
           <b-row>
             <button type="button" class="btn_edit" @click="edit_profile">수정</button>
-            <button type="button" class="btn_edit" @click="delete_profile">삭제</button>
+            <button type="button" class="btn_edit" @click="deleteAccount">삭제</button>
           </b-row>
         </form>
       </b-col>
@@ -66,22 +66,35 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+// import { mapGetters, mapActions } from 'vuex'
 import jwtDecode from 'jwt-decode'
 export default {
   name: 'Updated',
+  // props: ['value'],
   data() {
     return {
       userid: '',
       password: '',
       email: '',
       phone: '',
-      factoryname: ''
+      factoryname: '',
+      passwordVerify: null
     }
   },
   computed: {
-    message() {
-      return this.$store.getters.TokenUser.userid
+    // ...mapGetters('User', { user: 'User' }),
+    // ...mapGetters('Auth', ['TokenUser']),
+    // message() {
+    //   return this.$store.getters.TokenUser.userid
+    // },
+    // useremail() {
+    //   return this.$store.getters.User.email
+    // },
+    // factoryName() {
+    //   return this.$store.getters.User.factoryname
+    // },
+    UserInfo() {
+      return this.$store.getters.User
     },
     tokenUser() {
       return this.$store.getters.TokenUser
@@ -93,10 +106,18 @@ export default {
       return this.$store.getters.TokenError
     },
     validation() {
-      return this.userid.length < 1
-    },
-    ...mapGetters('User', { user: 'User' }),
-    ...mapGetters('Auth', ['TokenUser'])
+      return this.userid.length
+    }
+  },
+  watch: {
+    UserInfo(value) {
+      if (value && value.id) {
+        this.userid = value.userid
+        this.email = value.email
+        this.phone = value.phone
+        this.factoryname = value.factoryname
+      }
+    }
   },
   created() {
     // 이미 토큰을 가지고 있는 경우 처리를 위한 로직
@@ -114,18 +135,29 @@ export default {
         window.localStorage.removeItem('token') // 토큰 삭제
       }
     }
+    console.log('---this.tokenUser : ', this.tokenUser)
+    this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    // this.actUserInfo(this.tokenUser.id)
   },
   methods: {
-    ...mapActions('User', ['actUserInfo']),
+    // ...mapActions('User', ['actUserInfo']),
+    // useridInput(value) {
+    //   this.value = value
+    //   this.$emit('input', event.target.value)
+    // },
+    userInfoData() {
+      this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    },
     edit_profile() {
       console.log('Updated enterkey')
       const userData = {
-        s_userid: this.$store.getters.TokenUser.userid,
+        s_userid: this.userid,
         password: this.password,
         email: this.email,
         phone: this.phone,
         factoryname: this.factoryname
       }
+      console.log(userData)
       console.log(userData.s_userid)
       this.$store.dispatch('actUserUpdate', userData)
       //가입 후 폼 초기화
@@ -139,11 +171,21 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
+    },
+    deleteAccount() {
+      const deleteData = {
+        userid: this.userid,
+        password: this.password,
+        email: this.email,
+        phone: this.phone,
+        factoryname: this.factoryname
+      }
+      console.log(deleteData)
+      this.actUserDelete(deleteData)
+      alert(`${this.userid}님 정상적으로 탈퇴되었습니다!`)
+      this.$router.go()
     }
   }
-  // data() {
-  //   require('../../assets/images/smart-factory.png')
-  // }
 }
 </script>
 

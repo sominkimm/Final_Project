@@ -5,7 +5,7 @@
     title="인수인계 수정"
     cancel-title="Delete"
     :visible="visible"
-    @show="resetModal"
+    @show="showReport"
     @hidden="hide"
     @change="change"
     @ok="editReport"
@@ -61,7 +61,7 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   model: {
-    prop: 'visible',
+    prop: ['visible', 'val'],
     event: 'change'
   },
   props: {
@@ -90,30 +90,20 @@ export default {
     dialog(props) {
       return props.openDialog
     },
-    infoData() {
+    BoardData() {
       return this.board
     }
   },
-  watch: {
-    infoData(value) {
-      if (value && value.id) {
-        this.id = value.id
-        this.tName = value.tName
-        this.takeoverDate = value.takeoverDate
-        this.tTitle = value.tTitle
-        this.tContents = value.tContents
-      }
-      // this.board = { ...value }
-      // this.setDefaultValues()
-    }
-  },
   created() {
-    this.board = { ...this.infoData }
-    this.actBoardInfo(this.board)
-    console.log('???')
+    console.log('this.board : ', this.board)
+    this.actBoardInfo(this.board.id)
+    // this.$store.dispatch('actBoardUpdate', this.tokenUser.id)
   },
   methods: {
     ...mapActions('Board', ['actBoardInsert', 'actBoardInfo', 'actBoardUpdate', 'actBoardDelete']),
+    displayboardData() {
+      this.actBoardInfo(this.BoardData.id)
+    },
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity()
       this.idState = valid
@@ -135,46 +125,16 @@ export default {
       this.tContents = ''
       this.contentState = null
     },
-    handleOk(bvModalEvent) {
-      // Prevent modal from closing
-      bvModalEvent.preventDefault()
-      // Trigger submit handler
-      this.handleSubmit()
-
-      // this.$store.dispatch('actUserInsert', this.user) // 입력 실행
-    },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return
-      }
-      //////////////////////////////////////////////////////
-      // let boardData = {
-      //   id: this.id,
-      //   tName: this.tName,
-      //   takeoverDate: this.takeoverDate,
-      //   tTitle: this.tTitle,
-      //   tContents: this.tContents
-      // }
-      // this.$store.dispatch('actBoardInfo', boardData)
-      // this.actBoardInfo(boardData)
-      // console.log(boardData)
-
-      ////////////////////////////////////////////////////
-      let data = {
+    showReport() {
+      const data = {
         id: this.id,
         tName: this.tName,
         takeoverDate: this.takeoverDate,
         tTitle: this.tTitle,
         tContents: this.tContents
       }
-      this.$store.dispatch('actBoardInfo', data)
-      this.actBoardInfo(data)
       console.log(data)
-      // this.$nextTick(() => {
-      // this.$emit('closeDialog')
-      // this.$bvModal.hide('modal-prevent-closing')
-      // })
+      this.actBoardInfo(data)
     },
     editReport() {
       const reportData = {
