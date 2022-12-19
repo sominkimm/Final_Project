@@ -29,7 +29,7 @@
       <b-pagination-nav
         v-model="currentPage"
         :link-gen="linkGen"
-        :number-of-pages="20"
+        :number-of-pages="editrows"
         pills
         :total-rows="rows"
         :per-page="perPage"
@@ -70,6 +70,16 @@ export default {
     },
     rows() {
       return this.$store.getters.EdukitList.length
+    },
+    editrows() {
+      var a = this.$store.getters.EdukitList.length
+      if (a % 8 == 0) {
+        a /= 8
+      } else {
+        a /= 8
+        a += 1
+      }
+      return a
     }
   },
   mounted() {
@@ -89,7 +99,6 @@ export default {
       this.$store.dispatch('actEdukitList')
     },
     linkGen(pageNum) {
-      console.log('page')
       return pageNum === 1 ? '?' : `?page=${pageNum}`
     }
   }
