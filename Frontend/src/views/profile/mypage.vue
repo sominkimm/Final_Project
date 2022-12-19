@@ -4,7 +4,7 @@
       <b-col cols="5">
         <div class="mypageForm">
           <form action @submit.prevent="handleSubmit">
-            <h3 style="margin-top: 100px">Hello {{ this.$store.getters.TokenUser.userid }}</h3>
+            <h3>Hello {{ this.$store.getters.TokenUser.userid }}</h3>
             <b-row class="input-group">
               <b-col cols="2">
                 <label for="">ID </label>
@@ -208,7 +208,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$blue: #3498db;
+$blue: #a037fb;
 // $blue: rgb(85, 218, 227);
 * {
   margin: 0;
@@ -222,17 +222,23 @@ $blue: #3498db;
   background-color: #000;
 }
 
-.mypageForm {
-  height: 500px;
+form {
+  height: 510px;
   width: 600px;
-  // background-color: #000;
-  // color: #fff;
+  border: 1px solid rgba(233, 184, 247, 0.14);
+  // box-shadow: 0 2px 2px 0 rgba(162, 62, 190, 0.748);
+  border-radius: 10px;
+  margin-top: 100px;
 }
 
 h3 {
   text-align: center;
-  margin-top: 120px;
+  margin-top: 50px;
   margin-bottom: 50px;
+}
+
+input {
+  width: 200px;
 }
 
 .input-group {
@@ -242,7 +248,7 @@ h3 {
   width: 120px;
 }
 .input-group input {
-  margin-left: 25px;
+  margin-left: 45px;
 }
 .btn {
   box-sizing: border-box;
@@ -257,11 +263,11 @@ h3 {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1;
-  margin: 20px;
+  margin-top: 30px;
+  margin-left: 25px;
   padding: 0.6em 1.5em;
   text-decoration: none;
   text-align: center;
-  font-weight: 500;
 
   &:hover,
   &:focus {
@@ -269,33 +275,31 @@ h3 {
     outline: 0;
   }
 }
+
 .btn.edit {
-  margin-top: 40px;
-  // width: 70px;
-  // height: 30px;
-  margin-right: 5px;
+  margin-left: 50px;
   border-color: $blue;
   color: #fff;
-  box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  // box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
   transition: all 150ms ease-in-out;
 
   &:hover {
-    box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+    // box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+    box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
   }
 }
+
 .btn.delete {
-  margin-left: 10px;
-  margin-right: -40px;
-  margin-top: 40px;
-  // width: 70px;
-  // height: 30px;
   border-color: $blue;
   color: #fff;
-  box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  // box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
   transition: all 150ms ease-in-out;
 
   &:hover {
-    box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+    // box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+    box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
   }
 }
 </style>
