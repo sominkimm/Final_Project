@@ -10,6 +10,7 @@
         :per-page="perPage"
         :current-page="currentPage"
         :fields="fields"
+        show-empty
       >
         <template #cell(pdStartTime)="row">
           {{ row.item.pdStartTime.substring(0, 19).replace('T', ' ') }}
@@ -17,11 +18,11 @@
         <template #cell(pdEndTime)="row">
           {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <!-- <template #cell(eStopRuntime)="row">
-          {{ row.item.eStopRuntime.substring(0, 19) }}
+        <!-- <template v-if="showEStopRun" #cell(estopRuntime)="row">
+          {{ row.item.estopRuntime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <template #cell(eStopCleartime)="row">
-          {{ row.item.eStopCleartime.substring(0, 19) }}
+        <template v-if="showEStopClear" #cell(estopCleartime)="row">
+          {{ row.item.estopCleartime.substring(0, 19).replace('T', ' ') }}
         </template> -->
       </b-table>
       <!-- :per-page="perPage"
@@ -59,8 +60,8 @@ export default {
         { key: 'thrGoodset', label: '양품 수량' },
         { key: 'gappyProduct', label: '불량품 수량' },
         { key: 'eStop', label: '비상 정지 여부' },
-        { key: 'eStopRuntime', label: '비상 정지 시작 시간' },
-        { key: 'eStopCleartime', label: '비상 정지 정지 시간' }
+        { key: 'estopRuntime', label: '비상 정지 시작 시간' },
+        { key: 'estopCleartime', label: '비상 정지 정지 시간' }
       ]
     }
   },
@@ -91,7 +92,8 @@ export default {
     linkGen(pageNum) {
       console.log('page')
       return pageNum === 1 ? '?' : `?page=${pageNum}`
-    }
+    },
+    estopRuntime() {}
   }
 }
 </script>
