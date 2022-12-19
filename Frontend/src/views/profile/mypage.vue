@@ -10,7 +10,7 @@
                 <label for="">ID </label>
               </b-col>
               <b-col cols="5">
-                <input id="userid" v-model="userid" type="text" required />
+                <input id="userid" v-model="userid" type="text" readonly required />
               </b-col>
             </b-row>
             <b-row class="input-group">
@@ -192,7 +192,7 @@ export default {
     },
     deleteAccount() {
       const deleteData = {
-        userid: this.userid,
+        s_userid: this.userid,
         password: this.password,
         email: this.email,
         phone: this.phone,

@@ -1,6 +1,6 @@
 <template>
   <div class="edukit">
-    <div class="overflow-auto" style="width: 96%">
+    <div class="overflow-auto table-hover" style="width: 96%">
       <h3>작업 현황</h3>
       <b-table
         id="my-table"
@@ -8,6 +8,8 @@
         :per-page="perPage"
         :current-page="currentPage"
         :fields="fields"
+        :filter-function="filterTable"
+        :tbody-tr-class="rowClass"
         style="margin-bottom: 30px"
         show-empty
       >
@@ -17,12 +19,12 @@
         <template #cell(pdEndTime)="row">
           {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <!-- <template #cell(estopRuntime)="row">
-          {{ row.item.estopRuntime.substring(0, 19).replace('T', ' ') }}
+        <template #cell(estopRuntime)="row">
+          {{ filterTable(row.item.estopRuntime) }}
         </template>
         <template #cell(estopCleartime)="row">
-          {{ row.item.estopCleartime.substring(0, 19).replace('T', ' ') }}
-        </template> -->
+          {{ filterTable(row.item.estopCleartime) }}
+        </template>
       </b-table>
       <!-- :per-page="perPage"
         :current-page="currentPage" -->
@@ -53,15 +55,15 @@ export default {
       currentPage: 1,
       perPage: 8,
       fields: [
-        { key: 'id', label: 'No' },
-        { key: 'pdStartTime', label: '시작 시간' },
+        { key: 'id', label: 'No', sortable: true },
+        { key: 'pdStartTime', label: '시작 시간', sortable: true },
         { key: 'pdEndTime', label: '종료 시간' },
-        { key: 'firOutput', label: '총 생산량' },
-        { key: 'thrGoodset', label: '양품 수량' },
-        { key: 'gappyProduct', label: '불량품 수량' },
-        { key: 'eStop', label: '비상 정지 여부' },
-        { key: 'estopRuntime', label: '비상 정지 시작 시간' },
-        { key: 'estopCleartime', label: '비상 정지 정지 시간' }
+        { key: 'firOutput', label: '총 생산량', sortable: true },
+        { key: 'thrGoodset', label: '양품 수량', sortable: true },
+        { key: 'gappyProduct', label: '불량품 수량', sortable: true },
+        { key: 'eStop', label: '비상 정지 여부', sortable: true },
+        { key: 'estopRuntime', label: '비상 정지 시작 시간', sortable: true },
+        { key: 'estopCleartime', label: '비상 정지 해제 시간' }
       ]
     }
   },
@@ -90,6 +92,16 @@ export default {
     this.searchEdukitList()
   },
   methods: {
+    rowClass(item) {
+      // if (item.eStop === 'O') return 'table-danger'  비상정지여부 강조
+    },
+    filterTable(r) {
+      if (r == null) {
+        return null
+      } else {
+        return r.substring(0, 19).replace('T', ' ')
+      }
+    },
     handlePageChange(value) {
       this.page = value
     },
