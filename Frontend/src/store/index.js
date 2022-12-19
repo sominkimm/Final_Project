@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Auth from './models/auth'
 import User from './models/user'
-import Takeover from './models/takeover'
 import Board from './models/board'
 import Edukit from './models/edukit'
 
@@ -14,7 +13,6 @@ export default new Vuex.Store({
   modules: {
     Auth,
     User,
-    Takeover,
     Board,
     Edukit
   }
