@@ -7,7 +7,6 @@ let changeDetector = false; // 시작정지 감지
 let emergencyDetector = false; // 비상정지 감지
 let prossecing = false; // 작업중 표시변수
 let cnt = 0;
-// let check = -1;
 const client = mqtt.connect('mqtt:192.168.0.79:2555');
 
 client.on('connect', () => {
@@ -30,7 +29,12 @@ client.on('message', async (myEdukit, message) => {
   const obj = JSON.parse(message.toString());
   // if (check !== obj.Wrapper[31].value) { // 현재생산량이 달라지면
   // for (let i = 0; i < 10; i++) {
-  client.publish('testest', obj.Wrapper[31].value); // 현재생산량 mqtt 발행
+    try {
+      client.publish('nowss', obj.Wrapper[31].value ,{qos:1}); // 현재생산량 mqtt 발행     
+     } catch { 
+      console.log('err');
+    }
+    
   // }
 
   // check = obj.Wrapper[31].value; // 체크포인트

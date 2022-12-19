@@ -1,47 +1,66 @@
 <template>
-  <div>
+  <div class="dashboard">
     <b-container fluid>
-      <!-- <h1>대시보드</h1>
-    <div>장비: {{ selected.deviceName }}</div>
-    <div>태그: {{ selected.tagList }}</div>
-    <div v-if="chartData">
-      <line-chart ref="chart" :chart-data="chartData" :options="options" style="width: 500px"></line-chart>
-    </div> -->
-      <!-- <b-container> -->
-      <iframe
-        src="http://localhost:3000/d-solo/PSRBSp54k/plc?orgId=1&from=1671074622899&to=1671096222899&panelId=2"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886061658&to=1670907661658&panelId=4"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886076617&to=1670907676617&panelId=7"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886088380&to=1670907688380&panelId=2"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
-
-      <iframe
-        src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886102224&to=1670907702224&panelId=9"
-        width="450"
-        height="200"
-        frameborder="0"
-      ></iframe>
+      <b-row>
+        <b-col class="col">
+          <!-- 작업별 생산현황 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886088380&to=1670907688380&panelId=2"
+            width="1190"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col cols="2" class="col">
+          <!-- 총 생산량 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886061658&to=1670907661658&panelId=4"
+            width="210"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+        <b-col cols="3" class="col" style="margin-right: 30px">
+          <!-- 총 생산현황 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886076617&to=1670907676617&panelId=7"
+            width="350"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+        <b-col cols="6" class="col">
+          <!-- 생산현황 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1671435507033&to=1671457107033&panelId=11"
+            width="600"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
+      <b-row align-h="center">
+        <b-col cols="5" class="col" style="margin-right: 20px">
+          <!-- 양품 불량품 게이지 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1670886102224&to=1670907702224&panelId=9"
+            width="580"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+        <b-col class="col" style="margin-left: 20px">
+          <!-- 현재 공정률 -->
+          <iframe
+            src="http://192.168.0.79:3000/d-solo/TSI-DScVz/test?orgId=1&from=1671435443683&to=1671457043683&panelId=13"
+            width="600"
+            height="210"
+            frameborder="0"
+          ></iframe>
+        </b-col>
+      </b-row>
       <!-- </b-container> -->
     </b-container>
   </div>
@@ -97,4 +116,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dashboard {
+  height: 100vh;
+  background-color: #000;
+  padding-top: 50px;
+  padding-left: 60px;
+}
+
+.col {
+  padding: 0;
+}
+
+iframe {
+  border-radius: 15px;
+}
+</style>

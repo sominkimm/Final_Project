@@ -116,6 +116,7 @@ export default {
   background: #000;
   transition: all 0.3s ease;
   z-index: 100;
+  box-shadow: 0 0 50px #0ef;
 }
 .sidebar.barclose {
   width: 88px;

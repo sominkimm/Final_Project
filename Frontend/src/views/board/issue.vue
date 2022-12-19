@@ -22,8 +22,8 @@
                 <div class="tile-header">
                   <i class="ph-lightning-light"></i>
                   <h3>
-                    <span>{{ item.factoryname }}</span>
-                    <span>{{ item.userid }}</span>
+                    <div>{{ item.tTitle }}</div>
+                    <div>{{ item.tName }}</div>
                   </h3>
                 </div>
                 <a href="#" @click="openBoardModal(item)">
@@ -152,8 +152,8 @@ export default {
       return this.items.length
     },
     BoardList() {
-      return this.boardList
-      // return this.BoardList()
+      return this.board
+      // return this.boardList
     },
     insertedResult() {
       // return this.BoardInsertedResult
@@ -201,7 +201,7 @@ export default {
     ...mapActions('Board', ['actBoardInputMode', 'actBoardInit', 'actBoardList']),
     openNewModal() {
       this.detailsVisible = true
-      this.$store.dispatch('actBoardInputMode', 'insert')
+      // this.$store.dispatch('actBoardInputMode', 'insert')
       // this.actBoardInputMode('insert')
       // 2. 상세정보 초기화
       this.$store.dispatch('actBoardInit')
@@ -211,6 +211,7 @@ export default {
     },
     openBoardModal(val) {
       console.log('val : ', val)
+      this.actBoardList(val)
       this.boardModalVisible = true
     },
     closeStatus() {
@@ -251,6 +252,7 @@ export default {
   // column-gap: 1rem;
   row-gap: 1rem;
   margin-top: 1.25rem;
+  padding-left: 80px;
   @media (max-width: 700px) {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -288,14 +290,18 @@ export default {
     }
   }
   a {
+    position: relative;
     text-decoration: none;
-    display: flex;
+    // display: flex;
     // align-items: center;
     flex-direction: column;
     justify-content: space-between;
     font-weight: 600;
 
     .icon-button {
+      position: absolute;
+      display: flex;
+      float: right;
       font-size: 40px;
       color: #000;
       border-color: inherit;

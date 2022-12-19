@@ -2,11 +2,19 @@
   /* font-family: 'Dongle', sans-serif;
   font-size: 26px; */
   font-family: 'Gowun Dodum', sans-serif;
-  /* background-color: rgba(0, 0, 0, 0.874);
+  /* background: rgba(0, 0, 0, 0.874);
   color: #fff; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 .content-body {
-  padding: 5px 20px 20px 20px;
+  /* height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.874);
+  color: #fff; */
+  /* padding: 5px 20px 20px 20px; */
+  background-color: #000;
 }
 
 /* .separate-body {

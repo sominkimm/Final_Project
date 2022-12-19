@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="overflow-auto">
+  <div class="edukit">
+    <div class="overflow-auto" style="width: 96%">
       <h3>작업 현황</h3>
       <b-table
         id="my-table"
-        striped
-        hover
         :items="edukitList"
         :per-page="perPage"
         :current-page="currentPage"
         :fields="fields"
+        style="margin-bottom: 30px"
+        show-empty
       >
         <template #cell(pdStartTime)="row">
           {{ row.item.pdStartTime.substring(0, 19).replace('T', ' ') }}
@@ -17,11 +17,11 @@
         <template #cell(pdEndTime)="row">
           {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <!-- <template #cell(eStopRuntime)="row">
-          {{ row.item.eStopRuntime.substring(0, 19) }}
+        <!-- <template #cell(estopRuntime)="row">
+          {{ row.item.estopRuntime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <template #cell(eStopCleartime)="row">
-          {{ row.item.eStopCleartime.substring(0, 19) }}
+        <template #cell(estopCleartime)="row">
+          {{ row.item.estopCleartime.substring(0, 19).replace('T', ' ') }}
         </template> -->
       </b-table>
       <!-- :per-page="perPage"
@@ -31,6 +31,7 @@
         :link-gen="linkGen"
         :number-of-pages="editrows"
         pills
+        dark
         :total-rows="rows"
         :per-page="perPage"
         aria-controls="my-table"
@@ -100,12 +101,29 @@ export default {
     },
     linkGen(pageNum) {
       return pageNum === 1 ? '?' : `?page=${pageNum}`
-    }
+    },
+    estopRuntime() {}
   }
 }
 </script>
 
 <style lang="scss" scoped>
+* {
+  color: rgba(255, 255, 255, 0.868);
+}
+
+.edukit {
+  height: 100vh;
+  background-color: #000;
+  padding-top: 60px;
+  padding-left: 30px;
+}
+
+h3 {
+  margin-left: 30px;
+  margin-bottom: 50px;
+}
+
 #my-table {
   text-align: center;
 }
