@@ -37,13 +37,11 @@
         align="center"
         use-router
       ></b-pagination-nav>
-      <!-- :number-of-pages="10" -->
     </div>
   </div>
 </template>
 
 <script>
-// import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -72,9 +70,6 @@ export default {
     },
     rows() {
       return this.$store.getters.EdukitList.length
-    },
-    replaceValue() {
-      return this.$store.getters.EdukitList.replace('T', ' ')
     }
   },
   mounted() {
