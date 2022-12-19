@@ -47,14 +47,15 @@ router.post('/', async (req, res) => {
 // 리스트 조회
 router.get('/', async (req, res) => {
   try {
-    const pageNum = req.query.page; // 요청 페이지 넘버
-    let offset = 0;
-    if (pageNum > 1) {
-      offset = 8 * (pageNum - 1);
-    }
+    // const pageNum = req.query.page; // 요청 페이지 넘버
+    // let offset = 0;
+    // if (pageNum > 1) {
+    //   offset = 8 * (pageNum - 1);
+    // }
     const result = await Edukit.findAll({
-      offset,
-      limit: 8,
+      order: [
+        ['id', 'DESC'],
+      ],
     });
     res.json(result);
   } catch (err) {
