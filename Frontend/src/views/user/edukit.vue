@@ -73,10 +73,10 @@ export default {
     },
     editrows() {
       var a = this.$store.getters.EdukitList.length
-      if (a % this.data.perPage == 0) {
-        a /= this.data.perPage
+      if (a % this.perPage == 0) {
+        a /= this.perPage
       } else {
-        a /= this.data.perPage
+        a /= this.perPage
         a += 1
       }
       return a
