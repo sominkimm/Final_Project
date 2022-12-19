@@ -225,7 +225,7 @@ $blue: #a037fb;
 form {
   height: 510px;
   width: 600px;
-  border: 1px solid rgba(233, 184, 247, 0.14);
+  border: 2px solid rgba(233, 184, 247, 0.244);
   // box-shadow: 0 2px 2px 0 rgba(162, 62, 190, 0.748);
   border-radius: 10px;
   margin-top: 100px;

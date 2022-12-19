@@ -1,17 +1,19 @@
 <template>
   <div class="board-content">
     <Sidebar />
-    <b-row class="topbar" style="margin-top: 100px">
-      <b-col cols="8" align="right">
+    <b-row class="topbar" style="margin-top: 90px" align-h="around">
+      <b-col cols="5">
         <!-- <b-button v-b-modal.modal-prevent-closing class="b-write" size="sm">
           <i class="bx bx-edit"></i>
         </b-button> -->
+        <h3>인수인계 보고서</h3>
+        <!-- <newModal :open-dialog="" :schedule-list="" @closeDialog=""></newModal> -->
+      </b-col>
+      <b-col cols="4">
         <b-button class="b-write" size="sm" @click="openNewModal">
           <i class="bx bx-edit"></i>
         </b-button>
-        <!-- <newModal :open-dialog="" :schedule-list="" @closeDialog=""></newModal> -->
       </b-col>
-      <b-col cols="4"></b-col>
     </b-row>
     <b-row class="justify-content-center body-cont">
       <b-col cols="8">
@@ -239,10 +241,16 @@ export default {
   display: flex;
   flex-direction: row;
 }
+
+h3 {
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
 .b-write {
   // align-items: flex-end;
-  background: #cce8db;
-  border: 1px solid #cce8db;
+  background: #a992fa;
+  border: 1px solid #a992fa;
   color: #fff;
   border-radius: 50%;
   font-size: 20px;
