@@ -14,9 +14,6 @@ class Renderer {
     this.renderer.setPixelRatio(1)
     this.renderer.shadowMap.enabled = true
     this.renderer.setSize(element.clientWidth || 1000, element.clientHeight || 700)
-    console.log('test')
-    console.log(element.clientWidth)
-    console.log(element.clientHeight)
     element.appendChild(this.renderer.domElement)
   }
 

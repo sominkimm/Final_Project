@@ -82,7 +82,8 @@ export default {
       s_password: '',
       email: '',
       phone: '',
-      factoryname: ''
+      factoryname: '',
+      passwordVerify: ''
     }
   },
   computed: {
@@ -101,7 +102,7 @@ export default {
   },
   watch: {
     tokenUser(value) {
-      if (value && value.id && value.id > 0) {
+      if (value && value.exp > 0) {
         // 로그인이 완료된 상황
         this.$router.push('/home') // 메인 페이지 이동
       }
@@ -144,10 +145,11 @@ export default {
       wrapper.classList.toggle('active')
     },
     onSubmit() {
-      this.$store.dispatch('authLogin', {
+      const loginuserData = {
         userid: this.userid,
         password: this.password
-      })
+      }
+      this.$store.dispatch('authLogin', loginuserData)
       console.log('login clicked')
     },
     handleSubmit() {
@@ -170,6 +172,8 @@ export default {
       //template literal(백틱문법) 자바스크립변수를 문자열과 합침
     },
     initForm() {
+      this.userid = ''
+      this.password = ''
       this.s_userid = ''
       this.s_password = ''
       this.passwordVerify = ''

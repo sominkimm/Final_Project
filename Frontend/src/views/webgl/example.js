@@ -81,14 +81,14 @@ export default async element => {
   axisFolder.addExample('yAxis', -27, 1301828, scene.resource.edukit)
   axisFolder.addExample('xAxis', -4375, 25021563, scene.resource.edukit)
 
-  const mqttFolder = gui.addFolder('MQTT')
-  let options2 = {
-    'MQTT HOST': '',
-    'MQTT Port': '',
-    'MQTT Path': '',
-    'MQTT Topic': ''
-  }
-  mqttFolder.addOptions(options2)
+  // const mqttFolder = gui.addFolder('MQTT')
+  // let options2 = {
+  //   'MQTT HOST': '',
+  //   'MQTT Port': '',
+  //   'MQTT Path': '',
+  //   'MQTT Topic': ''
+  // }
+  // mqttFolder.addOptions(options2)
   // MQTT Event Setting
   new Event(element, scene.resource.edukit)
 

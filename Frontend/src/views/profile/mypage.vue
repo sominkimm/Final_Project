@@ -2,61 +2,69 @@
   <b-container>
     <b-row>
       <b-col cols="5">
-        <form action @submit.prevent="handleSubmit">
-          <h3>Hello {{ this.$store.getters.TokenUser.userid }}</h3>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">ID</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="userid" type="text" :value="message" readonly required /><!-- v-model="userid"-->
-            </b-col>
-          </b-row>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">Password</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="password" v-model="password" type="password" required />
-            </b-col>
-          </b-row>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">Check Password</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="passwordVerify" v-model="passwordVerify" type="password" required @submit.prevent="verifyPw" />
-            </b-col>
-          </b-row>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">Email</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="email" v-model="email" type="email" required />
-            </b-col>
-          </b-row>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">휴대전화</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="phone" v-model="phone" type="tel" required />
-            </b-col>
-          </b-row>
-          <b-row class="input-group">
-            <b-col cols="2">
-              <label for="">회사명</label>
-            </b-col>
-            <b-col cols="5">
-              <input id="factoryname" v-model="factoryname" required @keyup.enter="edit_profile" />
-            </b-col>
-          </b-row>
-          <b-row>
-            <button type="button" class="btn_edit" @click="edit_profile">수정</button>
-            <button type="button" class="btn_edit" @click="delete_profile">삭제</button>
-          </b-row>
-        </form>
+        <div class="mypageForm">
+          <form action @submit.prevent="handleSubmit">
+            <h3 style="margin-top: 100px">Hello {{ this.$store.getters.TokenUser.userid }}</h3>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">ID </label>
+              </b-col>
+              <b-col cols="5">
+                <input id="userid" v-model="userid" type="text" required />
+              </b-col>
+            </b-row>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">Password</label>
+              </b-col>
+              <b-col cols="5">
+                <input id="password" v-model="password" type="password" required />
+              </b-col>
+            </b-row>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">Check Password</label>
+              </b-col>
+              <b-col cols="5">
+                <input
+                  id="passwordVerify"
+                  v-model="passwordVerify"
+                  type="password"
+                  required
+                  @submit.prevent="verifyPw"
+                />
+              </b-col>
+            </b-row>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">Email</label>
+              </b-col>
+              <b-col cols="5">
+                <input id="email" v-model="email" type="email" required />
+              </b-col>
+            </b-row>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">휴대전화</label>
+              </b-col>
+              <b-col cols="5">
+                <input id="phone" v-model="phone" type="tel" required />
+              </b-col>
+            </b-row>
+            <b-row class="input-group">
+              <b-col cols="2">
+                <label for="">회사명</label>
+              </b-col>
+              <b-col cols="5">
+                <input id="factoryname" v-model="factoryname" required @keyup.enter="edit_profile" />
+              </b-col>
+            </b-row>
+            <b-row>
+              <button type="button" class="btn edit" @click="edit_profile">수정</button>
+              <button type="button" class="btn delete" @click="deleteAccount">탈퇴</button>
+            </b-row>
+          </form>
+        </div>
       </b-col>
       <!-- <b-col cols="3">
         <img :src="data" alt="" />
@@ -66,22 +74,35 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+// import { mapGetters, mapActions } from 'vuex'
 import jwtDecode from 'jwt-decode'
 export default {
   name: 'Updated',
+  // props: ['value'],
   data() {
     return {
       userid: '',
       password: '',
       email: '',
       phone: '',
-      factoryname: ''
+      factoryname: '',
+      passwordVerify: null
     }
   },
   computed: {
-    message() {
-      return this.$store.getters.TokenUser.userid
+    // ...mapGetters('User', { user: 'User' }),
+    // ...mapGetters('Auth', ['TokenUser']),
+    // message() {
+    //   return this.$store.getters.TokenUser.userid
+    // },
+    // useremail() {
+    //   return this.$store.getters.User.email
+    // },
+    // factoryName() {
+    //   return this.$store.getters.User.factoryname
+    // },
+    UserInfo() {
+      return this.$store.getters.User
     },
     tokenUser() {
       return this.$store.getters.TokenUser
@@ -93,10 +114,18 @@ export default {
       return this.$store.getters.TokenError
     },
     validation() {
-      return this.userid.length < 1
-    },
-    ...mapGetters('User', { user: 'User' }),
-    ...mapGetters('Auth', ['TokenUser'])
+      return this.userid.length
+    }
+  },
+  watch: {
+    UserInfo(value) {
+      if (value && value.id) {
+        this.userid = value.userid
+        this.email = value.email
+        this.phone = value.phone
+        this.factoryname = value.factoryname
+      }
+    }
   },
   created() {
     // 이미 토큰을 가지고 있는 경우 처리를 위한 로직
@@ -114,18 +143,29 @@ export default {
         window.localStorage.removeItem('token') // 토큰 삭제
       }
     }
+    console.log('---this.tokenUser : ', this.tokenUser)
+    this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    // this.actUserInfo(this.tokenUser.id)
   },
   methods: {
-    ...mapActions('User', ['actUserInfo']),
+    // ...mapActions('User', ['actUserInfo']),
+    // useridInput(value) {
+    //   this.value = value
+    //   this.$emit('input', event.target.value)
+    // },
+    userInfoData() {
+      this.$store.dispatch('actUserInfo', this.tokenUser.id)
+    },
     edit_profile() {
       console.log('Updated enterkey')
       const userData = {
-        s_userid: this.$store.getters.TokenUser.userid,
+        s_userid: this.userid,
         password: this.password,
         email: this.email,
         phone: this.phone,
         factoryname: this.factoryname
       }
+      console.log(userData)
       console.log(userData.s_userid)
       this.$store.dispatch('actUserUpdate', userData)
       //가입 후 폼 초기화
@@ -139,20 +179,38 @@ export default {
       this.email = ''
       this.phone = ''
       this.factoryname = ''
+    },
+    deleteAccount() {
+      const deleteData = {
+        userid: this.userid,
+        password: this.password,
+        email: this.email,
+        phone: this.phone,
+        factoryname: this.factoryname
+      }
+      console.log(deleteData)
+      this.actUserDelete(deleteData)
+      alert(`${this.userid}님 정상적으로 탈퇴되었습니다!`)
+      this.$router.go()
     }
   }
-  // data() {
-  //   require('../../assets/images/smart-factory.png')
-  // }
 }
 </script>
 
 <style lang="scss" scoped>
+$blue: #3498db;
+// $blue: rgb(85, 218, 227);
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   justify-content: center;
+}
+.mypageForm {
+  height: 500px;
+  width: 600px;
+  // background-color: #000;
+  // color: #fff;
 }
 
 h3 {
@@ -164,12 +222,64 @@ h3 {
 .input-group {
   margin: 15px 0;
 }
-
+.input-group label {
+  width: 120px;
+}
 .input-group input {
   margin-left: 25px;
 }
+.btn {
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid $blue;
+  border-radius: 0.6em;
+  color: $blue;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 0.6em 1.5em;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
 
-.btn_edit {
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+  }
+}
+.btn.edit {
   margin-top: 40px;
+  // width: 70px;
+  // height: 30px;
+  margin-right: 5px;
+  border-color: $blue;
+  color: #fff;
+  box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+  }
+}
+.btn.delete {
+  margin-left: 10px;
+  margin-right: -40px;
+  margin-top: 40px;
+  // width: 70px;
+  // height: 30px;
+  border-color: $blue;
+  color: #fff;
+  box-shadow: 0 0 40px 40px $blue inset, 0 0 0 0 $blue;
+  transition: all 150ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px 0 $blue inset, 0 0 10px 4px $blue;
+  }
 }
 </style>

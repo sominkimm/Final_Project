@@ -17,22 +17,22 @@
       <b-col cols="8">
         <div class="app-body-main-content">
           <section class="service-section">
-            <div class="tiles" @click="openBoardModal">
-              <div class="tile">
+            <div class="tiles">
+              <div v-for="(item, index) in BoardList" :key="index" class="tile">
                 <div class="tile-header">
                   <i class="ph-lightning-light"></i>
                   <h3>
-                    <span>A</span>
-                    <span>aaa</span>
+                    <span>{{ item.tTitle }}</span>
+                    <span>{{ item.tName }}</span>
                   </h3>
                 </div>
-                <a href="#">
+                <a href="#" @click="openBoardModal(item)">
                   <div class="icon-button">
                     <i class="bx bx-chevron-right-circle"></i>
                   </div>
                 </a>
               </div>
-              <div class="tile">
+              <!-- <div class="tile">
                 <div class="tile-header">
                   <i class="ph-fire-simple-light"></i>
                   <h3>
@@ -87,7 +87,7 @@
                     <i class="bx bx-chevron-right-circle"></i>
                   </div>
                 </a>
-              </div>
+              </div> -->
             </div>
           </section>
         </div>
@@ -120,7 +120,7 @@
       align="center"
     /> -->
     <newModal v-model="detailsVisible" @hide="closeStatus"></newModal>
-    <boardModal v-model="boardModalVisible" @hide="closeBModalStatus"></boardModal>
+    <boardModal v-model="boardModalVisible" :selected-item="selectedItem" @hide="closeBModalStatus"></boardModal>
   </div>
 </template>
 
@@ -140,19 +140,20 @@ export default {
       detailsVisible: false,
       boardModalVisible: false,
       value: null,
-      form: ''
+      form: '',
+      selectedItem: null
       // tName: '',
       // takeoverDate: ''
     }
   },
   computed: {
-    ...mapGetters('Board', { board: 'Board' }),
+    ...mapGetters('Board', { board: 'Board', boardList: 'BoardList' }),
     rows() {
       return this.items.length
     },
     BoardList() {
-      return this.$store.getters.BoardList
-      // return this.BoardList()
+      return this.board
+      // return this.boardList
     },
     insertedResult() {
       // return this.BoardInsertedResult
@@ -193,11 +194,14 @@ export default {
       this.setDefaultValues() // 기본값 세팅
     }
   },
+  created() {
+    this.actBoardList()
+  },
   methods: {
-    ...mapActions('Board', ['actBoardInputMode', 'actBoardInit']),
+    ...mapActions('Board', ['actBoardInputMode', 'actBoardInit', 'actBoardList']),
     openNewModal() {
       this.detailsVisible = true
-      this.$store.dispatch('actBoardInputMode', 'insert')
+      // this.$store.dispatch('actBoardInputMode', 'insert')
       // this.actBoardInputMode('insert')
       // 2. 상세정보 초기화
       this.$store.dispatch('actBoardInit')
@@ -205,7 +209,9 @@ export default {
       // 3. 모달 출력
       this.$bvModal.show('modal-user-inform')
     },
-    openBoardModal() {
+    openBoardModal(val) {
+      console.log('val : ', val)
+      this.actBoardList(val)
       this.boardModalVisible = true
     },
     closeStatus() {
