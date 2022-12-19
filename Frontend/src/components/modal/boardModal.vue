@@ -69,6 +69,9 @@ export default {
       type: Boolean,
       default: false
     },
+    val: {
+      type: Object
+    },
     openDialog: Boolean
   },
   data() {

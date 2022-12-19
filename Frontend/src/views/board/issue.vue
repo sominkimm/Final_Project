@@ -22,8 +22,8 @@
                 <div class="tile-header">
                   <i class="ph-lightning-light"></i>
                   <h3>
-                    <span>{{ item.factoryname }}</span>
-                    <span>{{ item.userid }}</span>
+                    <span>{{ item.tTitle }}</span>
+                    <span>{{ item.tName }}</span>
                   </h3>
                 </div>
                 <a href="#" @click="openBoardModal(item)">
@@ -152,8 +152,8 @@ export default {
       return this.items.length
     },
     BoardList() {
-      return this.boardList
-      // return this.BoardList()
+      return this.board
+      // return this.boardList
     },
     insertedResult() {
       // return this.BoardInsertedResult
@@ -201,7 +201,7 @@ export default {
     ...mapActions('Board', ['actBoardInputMode', 'actBoardInit', 'actBoardList']),
     openNewModal() {
       this.detailsVisible = true
-      this.$store.dispatch('actBoardInputMode', 'insert')
+      // this.$store.dispatch('actBoardInputMode', 'insert')
       // this.actBoardInputMode('insert')
       // 2. 상세정보 초기화
       this.$store.dispatch('actBoardInit')
@@ -211,6 +211,7 @@ export default {
     },
     openBoardModal(val) {
       console.log('val : ', val)
+      this.actBoardList(val)
       this.boardModalVisible = true
     },
     closeStatus() {

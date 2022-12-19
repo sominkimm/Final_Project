@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <div class="separate-body" /> -->
-    <b-container fluid style="padding-left: 0px">
-      <b-row>
+    <b-container fluid style="padding-left: 0px" variant="dark">
+      <b-row class="rowContainer">
         <!-- Side bar -->
         <b-col cols="1" style="padding-right: 0px; margin-right: 20px">
           <app-sidebar />
@@ -34,4 +34,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.rowContainer {
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+}
+</style>

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="overflow-auto">
+    <div class="overflow-auto" style="margin-top: 30px">
       <h3>작업 현황</h3>
       <b-table
         id="my-table"
-        striped
-        hover
         :items="edukitList"
         :per-page="perPage"
         :current-page="currentPage"
         :fields="fields"
+        style="margin-bottom: 30px"
+        show-empty
       >
         <template #cell(pdStartTime)="row">
           {{ row.item.pdStartTime.substring(0, 19).replace('T', ' ') }}
@@ -17,12 +17,12 @@
         <template #cell(pdEndTime)="row">
           {{ row.item.pdEndTime.substring(0, 19).replace('T', ' ') }}
         </template>
-        <!-- <template #cell(eStopRuntime)="row">
-          {{ row.item.eStopRuntime.substring(0, 19) }}
+        <template #cell(eStopRuntime)="row">
+          {{ row.item.estopRuntime.substring(0, 19).replace('T', ' ') }}
         </template>
         <template #cell(eStopCleartime)="row">
-          {{ row.item.eStopCleartime.substring(0, 19) }}
-        </template> -->
+          {{ row.item.estopCleartime.substring(0, 19).replace('T', ' ') }}
+        </template>
       </b-table>
       <!-- :per-page="perPage"
         :current-page="currentPage" -->
@@ -31,6 +31,7 @@
         :link-gen="linkGen"
         :number-of-pages="20"
         pills
+        dark
         :total-rows="rows"
         :per-page="perPage"
         aria-controls="my-table"
@@ -50,7 +51,7 @@ export default {
       // currentPage: 1,
       // pageNum: 0,
       currentPage: 1,
-      perPage: 8,
+      perPage: 10,
       fields: [
         { key: 'id', label: 'No' },
         { key: 'pdStartTime', label: '시작 시간' },
@@ -59,8 +60,8 @@ export default {
         { key: 'thrGoodset', label: '양품 수량' },
         { key: 'gappyProduct', label: '불량품 수량' },
         { key: 'eStop', label: '비상 정지 여부' },
-        { key: 'eStopRuntime', label: '비상 정지 시작 시간' },
-        { key: 'eStopCleartime', label: '비상 정지 정지 시간' }
+        { key: 'estopRuntime', label: '비상 정지 시작 시간' },
+        { key: 'estopCleartime', label: '비상 정지 정지 시간' }
       ]
     }
   },
@@ -97,6 +98,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  color: rgba(255, 255, 255, 0.868);
+}
+
 #my-table {
   text-align: center;
 }
