@@ -17,8 +17,8 @@
       <b-col cols="8">
         <div class="app-body-main-content">
           <section class="service-section">
-            <div class="tiles">
-              <div v-for="(item, index) in BoardList" :key="index" class="tile" @click="openBoardModal(item)">
+            <div v-for="(item, index) in BoardList" :key="index" class="tiles" @click="openBoardModal(item)">
+              <div class="tile">
                 <div class="tile-header">
                   <h3>
                     <div>{{ item.tTitle }}</div>
@@ -101,6 +101,9 @@ export default {
     insertedResult() {
       // return this.BoardInsertedResult
       return this.$store.getters.BoardInsertedResult
+    },
+    openModal(val) {
+      return this.actBoardList(val)
     }
   },
   watch: {
@@ -152,10 +155,13 @@ export default {
       // 3. 모달 출력
       this.$bvModal.show('modal-user-inform')
     },
-    openBoardModal(val) {
+    openBoardModal() {
       // console.log('val : ', val)
-      this.actBoardList(val)
+      this.actBoardList(this.id)
+      this.$bvModal.show('modal-prevent-closing-edit')
       this.boardModalVisible = true
+
+      // this.actBoardList(val)
     },
     closeStatus() {
       this.detailsVisible = false

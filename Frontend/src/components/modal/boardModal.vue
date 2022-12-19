@@ -11,57 +11,60 @@
     @ok="editReport"
     @cancel="deleteReport"
   >
-    <form ref="form" @submit.stop.prevent="editReport">
-      <b-form-group label="인덱스 번호" label-for="index-no">
-        <b-form-input id="name-input" v-model="id" :state="idState" required />
-      </b-form-group>
-      <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
-        <b-form-input id="name-input" v-model="tName" :state="nameState" required />
-      </b-form-group>
+    <child-modal-template :pid="id">
+      <form ref="form" @submit.stop.prevent="editReport">
+        <b-form-group label="인덱스 번호" label-for="index-no">
+          <b-form-input id="name-input" v-model="id" :state="idState" required />
+        </b-form-group>
+        <b-form-group label="작성자" label-for="name-input" invalid-feedback="이름을 입력하세요" :state="nameState">
+          <b-form-input id="name-input" v-model="tName" :state="nameState" required />
+        </b-form-group>
 
-      <b-form-group
-        label="작성일"
-        label-for="datepicker-placeholder"
-        invalid-feedback="날짜를 선택하세요"
-        :state="datepickerState"
-      >
-        <b-form-datepicker
-          id="datepicker-placeholder"
-          v-model="takeoverDate"
-          placeholder="날짜를 선택하세요"
-          locale="ko"
-        />
-      </b-form-group>
+        <b-form-group
+          label="작성일"
+          label-for="datepicker-placeholder"
+          invalid-feedback="날짜를 선택하세요"
+          :state="datepickerState"
+        >
+          <b-form-datepicker
+            id="datepicker-placeholder"
+            v-model="takeoverDate"
+            placeholder="날짜를 선택하세요"
+            locale="ko"
+          />
+        </b-form-group>
 
-      <b-form-group
-        label="제목"
-        label-for="title-input"
-        invalid-feedback="제목을 입력하세요"
-        :state="titleState"
-        style="margin-top: 7px"
-      >
-        <b-form-input id="title-input" v-model="tTitle" :state="titleState" required />
-      </b-form-group>
-      <b-form-group label="내용" label-for="content-input" invalid-feedback="내용을 입력하세요" :state="contentState">
-        <b-form-textarea
-          id="content-input"
-          v-model="tContents"
-          :state="contentState"
-          placeholder="Enter something..."
-          rows="3"
-          max-rows="6"
-          required
-        />
-      </b-form-group>
-    </form>
+        <b-form-group
+          label="제목"
+          label-for="title-input"
+          invalid-feedback="제목을 입력하세요"
+          :state="titleState"
+          style="margin-top: 7px"
+        >
+          <b-form-input id="title-input" v-model="tTitle" :state="titleState" required />
+        </b-form-group>
+        <b-form-group label="내용" label-for="content-input" invalid-feedback="내용을 입력하세요" :state="contentState">
+          <b-form-textarea
+            id="content-input"
+            v-model="tContents"
+            :state="contentState"
+            placeholder="Enter something..."
+            rows="3"
+            max-rows="6"
+            required
+          />
+        </b-form-group>
+      </form>
+    </child-modal-template>
   </b-modal>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+// import issue from '../../views/board/issue.vue'
 export default {
   model: {
-    prop: ['visible', 'val'],
+    prop: ['visible', 'selectedItem'],
     event: 'change'
   },
   props: {
@@ -69,7 +72,7 @@ export default {
       type: Boolean,
       default: false
     },
-    val: {
+    selectedItem: {
       type: Object
     },
     openDialog: Boolean
