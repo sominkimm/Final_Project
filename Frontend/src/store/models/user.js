@@ -3,17 +3,11 @@ import api from '../apiUtil'
 // 초기값 선언
 const stateInit = {
   User: {
-    // id: null,
-    // departmentId: null,
-    factoryname: null,
-    userid: null,
+    s_userid: null,
     password: null,
-    // role: null,
     email: null,
-    phone: null
-    // updatedPwDate: null,
-    // createdAt: null,
-    // updatedAt: null
+    phone: null,
+    factoryname: null
   }
 }
 
@@ -106,15 +100,6 @@ export default {
     actUserInsert(context, payload) {
       // 상태값 초기화
       context.commit('setInsertedResult', null)
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const insertedResult = 1
-        context.commit('setInsertedResult', insertedResult)
-      }, 300) // state값의 변화를 감지하기 위하여 일부러 지연 시켰다.
-      */
-
       /* RestAPI 호출 */
       api
         .post('/serverApi/users', payload)
@@ -138,53 +123,15 @@ export default {
     },
     // 상세정보 조회
     actUserInfo(context, payload) {
+      console.log('actUserInfo start')
       // 상태값 초기화
       context.commit('setUser', { ...stateInit.User })
-
-      /* 테스트 데이터 세팅 */
-      /*
-      setTimeout(() => {
-        const UserList = [
-          {
-            id: 1,
-            departmentId: 1,
-            name: '홍길동',
-            userid: 'hong',
-            role: 'leader',
-            email: 'hong@email.com',
-            phone: '010-1234-5678',
-            updatedPwDate: '2021-12-01T00:00:00.000Z',
-            createdAt: '2021-12-01T00:00:00.000Z',
-            Department: { id: 1, name: '개발팀', code: 'dev', createdAt: '2021-12-01T00:00:00.000Z' }
-          },
-          {
-            id: 2,
-            departmentId: 2,
-            name: '김길동',
-            userid: 'kim',
-            role: 'member',
-            email: 'kim@email.com',
-            phone: '010-9876-5432',
-            updatedPwDate: '2021-12-01T00:00:00.000Z',
-            createdAt: '2021-12-01T00:00:00.000Z',
-            Department: { id: 2, name: '영업팀', code: 'sales', createdAt: '2021-12-01T00:00:00.000Z' }
-          }
-        ]
-
-        let User = { ...stateInit.User }
-        for (let i = 0; i < UserList.length; i += 1) {
-          if (payload === UserList[i].id) {
-            User = { ...UserList[i] }
-          }
-        }
-        context.commit('setUser', User)
-      }, 300)
-      */
 
       /* RestAPI 호출 */
       api
         .get(`/serverApi/users/${payload}`)
         .then(response => {
+          console.log('response : ', response)
           const user = response && response.data
           context.commit('setUser', user)
         })
@@ -225,7 +172,7 @@ export default {
 
       /* RestAPI 호출 */
       api
-        .delete(`/serverApi/users/${payload}`)
+        .delete(`/serverApi/users/${payload.id}`)
         .then(response => {
           const deletedResult = response && response.data && response.data.deletedCount
           context.commit('setDeletedResult', deletedResult)
