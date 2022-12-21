@@ -10,7 +10,7 @@ class Gui {
     this.gui.domElement.style.position = 'absolute'
     this.gui.domElement.style.flex = 'none'
     this.gui.domElement.style.top = '5%'
-    this.gui.domElement.style.left = '82%'
+    this.gui.domElement.style.left = '80%'
     element.style.display = 'inline-flex'
 
     element.appendChild(this.gui.domElement)

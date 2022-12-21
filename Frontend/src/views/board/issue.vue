@@ -29,9 +29,9 @@
                   </h3>
                 </div>
                 <a href="#" @click="openBoardModal(item)">
-                  <div class="icon-button">
+                  <!-- <div class="icon-button">
                     <i class="bx bx-chevron-right-circle"></i>
-                  </div>
+                  </div> -->
                 </a>
               </div>
               <!-- <div class="tile">

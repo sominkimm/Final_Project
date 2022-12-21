@@ -92,8 +92,9 @@ export default {
     this.searchEdukitList()
   },
   methods: {
+    // 비상정지여부 강조
     rowClass(item) {
-      // if (item.eStop === 'O') return 'table-danger'  비상정지여부 강조
+      if (item.eStop === 'O') return 'bg-secondary'
     },
     filterTable(r) {
       if (r == null) {
