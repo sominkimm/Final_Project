@@ -33,7 +33,6 @@
         :link-gen="linkGen"
         :number-of-pages="editrows"
         pills
-        dark
         :total-rows="rows"
         :per-page="perPage"
         aria-controls="my-table"
